@@ -26,9 +26,6 @@ module.exports = function (grunt) {
 			server: {
 				script: 'server.js',
 				options: {
-					env: {
-						PORT: '80'
-					},
 					ignore: ['node_modules/**'],
 					watch: [
 						'server.js',
@@ -58,7 +55,7 @@ module.exports = function (grunt) {
 		stylus: {
 			css: {
 				expand: true,
-				cwd: 'src/styles',
+				cwd: 'src/styl',
 				src: ['**/*.styl'],
 				dest: 'static/css',
 				ext: '.css'
