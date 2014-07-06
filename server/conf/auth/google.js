@@ -1,7 +1,7 @@
-module.exports = function (app) {
-	var passport = require('passport'),
-		GoogleStrategy = require('passport-google').Strategy;
+var passport = require('passport'),
+	GoogleStrategy = require('passport-google').Strategy;
 
+module.exports = function (app) {
 	passport.use(new GoogleStrategy({
 			returnURL: 'http://localhost/auth/google/return',
 			realm: 'http://localhost',

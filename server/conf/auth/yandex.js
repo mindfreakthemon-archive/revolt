@@ -1,7 +1,7 @@
-module.exports = function (app) {
-	var passport = require('passport'),
-		YandexStrategy = require('passport-yandex').Strategy;
+var passport = require('passport'),
+	YandexStrategy = require('passport-yandex').Strategy;
 
+module.exports = function (app) {
 	passport.use(new YandexStrategy({
 			clientID: app.conf.get('passport:yandex:client_id'),
 			clientSecret: app.conf.get('passport:yandex:client_secret'),

@@ -1,7 +1,7 @@
-module.exports = function (app) {
-	var passport = require('passport'),
-		GitHubStrategy = require('passport-github').Strategy;
+var passport = require('passport'),
+	GitHubStrategy = require('passport-github').Strategy;
 
+module.exports = function (app) {
 	passport.use(new GitHubStrategy({
 			clientID: app.conf.get('passport:github:client_id'),
 			clientSecret: app.conf.get('passport:github:client_secret'),

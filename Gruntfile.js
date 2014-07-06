@@ -30,7 +30,8 @@ module.exports = function (grunt) {
 					watch: [
 						'server.js',
 						'server/**/*.js'
-					]
+					],
+					legacyWatch: true
 				}
 			}
 		},

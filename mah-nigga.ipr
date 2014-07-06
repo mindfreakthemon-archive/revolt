@@ -29,6 +29,13 @@
     <file url="PROJECT" libraries="{Node.js v0.10.28 Core Modules}" />
     <includedPredefinedLibrary name="Node.js Globals" />
   </component>
+  <component name="ProjectDictionaryState">
+    <dictionary name="mindfreakthemon">
+      <words>
+        <w>resave</w>
+      </words>
+    </dictionary>
+  </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state>

@@ -1,4 +1,4 @@
-class gruntserver (
+class grunt (
   $command = 'server'
 ) {
   Exec { path => '/usr/local/node/node-default/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' }
@@ -19,11 +19,11 @@ class gruntserver (
   file { '/etc/init.d/grunt':
     ensure => file,
     mode => '0755',
-    content => template('gruntserver/etc/init.d/grunt.erb'),
+    content => template('grunt/etc/init.d/grunt.erb'),
     notify => Service['grunt'],
   }
 
-  service { 'grunt-server':
+  service { 'grunt':
     ensure => 'running',
     enable => true,
     hasstatus => false,

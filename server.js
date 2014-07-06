@@ -5,14 +5,15 @@ require('./server/require')(app);
 app.helpers	= {};
 app.models = {};
 app.db = {};
+app.conf = {};
+app.logger = {};
 
 app.require('./server/conf');
-app.require('./server/init');
-app.require('./server/model');
 app.require('./server/models');
-app.require('./server/auth');
 app.require('./server/helpers');
 app.require('./server/middleware');
-app.require('./server/nock');
+//app.require('./server/nock');
 
-app.listen(process.env.PORT || app.conf.get('port'));
+app.listen(app.conf.get('port'), function () {
+	app.logger.info('server started on port %d', app.conf.get('port'));
+});

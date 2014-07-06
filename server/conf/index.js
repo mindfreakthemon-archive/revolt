@@ -22,7 +22,7 @@ module.exports = function (app) {
 	conf.loadFilesSync();
 
 	conf.defaults({
-		port: 8080,
+		port: process.env.PORT || 8080,
 		mocks: {
 			enabled: false
 		},
@@ -61,4 +61,7 @@ module.exports = function (app) {
 		// (value)
 		this.emit.apply(this, ['set:' + args.shift()].concat(args));
 	};
+
+	app.require('./auth');
+	app.require('./init');
 };
