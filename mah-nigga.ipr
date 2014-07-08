@@ -32,7 +32,9 @@
   <component name="ProjectDictionaryState">
     <dictionary name="mindfreakthemon">
       <words>
+        <w>multifactor</w>
         <w>resave</w>
+        <w>totp</w>
       </words>
     </dictionary>
   </component>

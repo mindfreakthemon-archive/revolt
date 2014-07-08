@@ -25,6 +25,12 @@ module.exports = function (app) {
 		})
 		.attr('yandex_id', {
 			tags: ['accounts']
+		})
+		.attr('totp_key', {
+			tags: ['multifactor']
+		})
+		.attr('totp_period', {
+			tags: ['multifactor']
 		});
 
 	model.patch(User, 'users');

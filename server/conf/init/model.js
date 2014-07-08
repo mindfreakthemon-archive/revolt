@@ -1,6 +1,8 @@
 var constructor = require('nodejs-model');
 
-function patch(redis, model, prefix) {
+function patch(db, model, prefix) {
+	var redis = db.redis;
+
 	model.load = function (id, done) {
 		redis.hgetall(prefix + ':' + id, function (error, data) {
 			if (error) {
@@ -136,5 +138,5 @@ function patch(redis, model, prefix) {
 }
 
 module.exports = function (app) {
-	constructor.patch = patch.bind(null, app.db.redis);
+	constructor.patch = patch.bind(null, app.db);
 };
