@@ -21,7 +21,26 @@ function patch(db, model, prefix) {
 	};
 
 	model.save = function (instance, done) {
-		redis.hmset(prefix + ':' + instance.id(), instance.toJSON('*'), function (error) {
+		var id = instance.id(),
+			queue = redis.multi(),
+			json = instance.toJSON('*'),
+			empty = [];
+
+		Object.keys(json)
+			.forEach(function (key) {
+				if (typeof json[key] === 'undefined' || json[key] === null) {
+					empty.push(key);
+					delete json[key];
+				}
+			}, this);
+
+		queue.hmset(prefix + ':' + id, json);
+
+		empty.forEach(function (key) {
+			queue.hdel(prefix + ':' + id, key)
+		});
+
+		queue.exec(function (error) {
 			if (error) {
 				done(error);
 				return;
@@ -111,28 +130,19 @@ function patch(db, model, prefix) {
 	};
 
 	model.on('model:created', function (instance) {
-		var update = instance.update;
-
-		instance.update = function (object, tags) {
-			update.call(this, object, tags);
-
-			var attrs = this.attrs;
-
-			Object.keys(attrs)
-				.forEach(function (key) {
-					if (typeof attrs[key] === 'undefined' || attrs[key] === null) {
-						delete attrs[key];
-					}
-				}, this);
-
-			return this;
-		};
-
 		instance.defaults = function (object, tags) {
 			var json = this.toJSON('*');
 
 			this.update(object, tags || '*');
 			this.update(json, '*');
+		};
+
+		instance.save = function () {
+			var args = Array.prototype.slice.call(arguments, 0);
+
+			args.unshift(instance);
+
+			model.save.apply(model, args);
 		};
 	});
 }

@@ -18,6 +18,7 @@
   "homepage": "https://github.com/mindfreakthemon/mah-nigga",
   "dependencies": {
     "async-mini": "^0.2.0",
+    "body-parser": "^1.4.3",
     "caller-id": "^0.1.0",
     "connect-redis": "^2.0.0",
     "cookie-parser": "^1.1.0",
@@ -33,6 +34,7 @@
     "nock": "^0.34.1",
     "node-uuid": "~1.4.1",
     "nodejs-model": "~0.1.6",
+    "notp": "^2.0.2",
     "passport": "~0.2.0",
     "passport-github": "^0.1.5",
     "passport-google": "~0.3.0",

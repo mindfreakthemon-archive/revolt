@@ -24,12 +24,4 @@ module.exports = function (app) {
 
 	app.use(passport.initialize());
 	app.use(passport.session());
-
-	app.use(function (req, res, next) {
-		res.locals.user = req.user;
-		res.locals.session = req.session;
-		res.locals.request = req;
-		res.locals.response = res;
-		next();
-	});
 };

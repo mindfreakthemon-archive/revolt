@@ -1,0 +1,7 @@
+extends ../layout
+
+block content
+	h1 HI PLEASE VERIFY CODE
+	form(method='POST', action='/totp/verify')
+		input(type='text', name='code')
+		button Save

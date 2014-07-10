@@ -1,15 +1,22 @@
 var express = require('express'),
-	helmet = require('helmet'),
-	winston = require('winston'),
-	passport = require('passport'),
-	moment = require('moment');
+	helmet = require('helmet');
 
 module.exports = function (app) {
 	app.use('/static', express.static('static'));
 
 	helmet.defaults(app);
 
+	app.require('./body');
 	app.require('./session');
+
+	app.use(function (req, res, next) {
+		res.locals.user = req.user;
+		res.locals.session = req.session;
+		res.locals.request = req;
+		res.locals.response = res;
+		next();
+	});
+
 	app.require('./logs/access');
 	app.require('./routes');
 	app.require('./logs/error');
