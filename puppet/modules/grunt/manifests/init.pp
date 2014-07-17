@@ -1,5 +1,5 @@
 class grunt (
-  $command = 'server'
+  $command = 'nodemon'
 ) {
   Exec { path => '/usr/local/node/node-default/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' }
 

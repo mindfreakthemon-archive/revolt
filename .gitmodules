@@ -13,3 +13,9 @@
 [submodule "puppet/modules/redis"]
 	path = puppet/modules/redis
 	url = https://github.com/echocat/puppet-redis.git
+[submodule "puppet/modules/mongodb"]
+	path = puppet/modules/mongodb
+	url = https://github.com/puppetlabs/puppetlabs-mongodb.git
+[submodule "puppet/modules/apt"]
+	path = puppet/modules/apt
+	url = https://github.com/puppetlabs/puppetlabs-apt.git

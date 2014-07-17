@@ -4,19 +4,19 @@ var session = require('express-session'),
 	passport = require('passport');
 
 module.exports = function (app) {
-	app.use(cookieParser(app.conf.get('cookie:secret')));
+	app.use(cookieParser(app.conf.get('cookie.secret')));
 
 	app.use(session({
-		secret: app.conf.get('session:secret'),
+		secret: app.conf.get('session.secret'),
 		store: new RedisStore({
 			client: app.db.redis,
-			prefix: app.conf.get('session:prefix')
+			prefix: app.conf.get('session.prefix')
 		}),
 		cookie: {
 			path: '/',
 			httpOnly: true,
 			secure: false,
-			maxAge: app.conf.get('session:maxAge')
+			maxAge: app.conf.get('session.maxAge')
 		},
 		resave: false,
 		saveUninitialized: false

@@ -1,3 +1,5 @@
+var express = require('express');
+
 module.exports = function (app) {
 	/**
 	 * Renders template. Simple stuff
@@ -22,6 +24,29 @@ module.exports = function (app) {
 
 		return function (req, res) {
 			res.redirect.apply(res, args);
+		};
+	};
+
+	app.helpers.host = function (hostname) {
+		var pattern = (hostname || '*')
+				.replace(/\./g, '\\.')
+				.replace(/\*/g, '(.*)'),
+			rHost = new RegExp('^' + pattern + '$', 'i');
+
+		return function (req, res, next) {
+			var hostname = req.headers.host;
+
+			if (!hostname) {
+				return next('route');
+			}
+
+			var host = hostname.split(':')[0];
+
+			if (!rHost.test(host)) {
+				return next('route');
+			}
+
+			next();
 		};
 	};
 };

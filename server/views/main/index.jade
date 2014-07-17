@@ -6,5 +6,6 @@ block content
 	ul
 		li: a(href='/auth/google') Google
 		li: a(href='/auth/github') GitHub
-		li: a(href='/auth/yandex') Yandex
+		if user
+			li: a(href='/totp') Totp settings
 

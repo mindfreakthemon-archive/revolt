@@ -11,7 +11,6 @@ module.exports = function (app) {
 			passport._strategies.google._relyingParty.returnUrl = url + '/auth/google/callback';
 			passport._strategies.google._relyingParty.realm = url;
 			passport._strategies.github._callbackURL = url + '/auth/github/callback';
-			passport._strategies.yandex._callbackURL = url + '/auth/yandex/callback';
 			next();
 		})
 
@@ -27,14 +26,6 @@ module.exports = function (app) {
 
 		.get('/github/callback',
 		passport.authenticate('github', {
-			failureRedirect: '/auth/login'
-		}),
-		app.helpers.loggedTo('/'))
-
-		.get('/yandex', passport.authenticate('yandex'))
-
-		.get('/yandex/callback',
-		passport.authenticate('yandex', {
 			failureRedirect: '/auth/login'
 		}),
 		app.helpers.loggedTo('/'))

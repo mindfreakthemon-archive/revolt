@@ -4,9 +4,10 @@ Vagrant.configure("2") do |config|
 
   config.vm.network "forwarded_port", guest: 8080, host: 8080
   config.vm.network "forwarded_port", guest: 5858, host: 5858
+  config.vm.network "forwarded_port", guest: 27017, host: 27017
 
   config.vm.provider "virtualbox" do |vb|
-     vb.customize ["modifyvm", :id, "--memory", "2048", "--cpus", "1", "--cpuexecutioncap", "100"]
+     vb.customize ["modifyvm", :id, "--memory", "4096", "--cpus", "4", "--cpuexecutioncap", "100"]
   end
 
   config.vm.provision "shell", inline: "/usr/bin/apt-get update"

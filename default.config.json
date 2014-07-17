@@ -1,0 +1,29 @@
+{
+	"port": 8080,
+	"session": {
+		"prefix": "session:",
+		"maxAge": 172800000,
+		"secret": "default"
+	},
+	"cookie": {
+		"secret": "default"
+	},
+	"passport": {
+		"github": {
+			"client_id": "undefined",
+			"client_secret": "undefined"
+		}
+	},
+	"mongo": "mongodb://localhost/mongodb",
+	"redis": "redis://localhost",
+	"mailer": {
+		"from": "no-reply@example.com",
+		"host": "smtp.gmail.com",
+		"secureConnection": true,
+		"port": 465,
+		"auth": {
+			"user": "gmail.user@gmail.com",
+			"pass": "password"
+		}
+	}
+}

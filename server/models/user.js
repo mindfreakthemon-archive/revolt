@@ -1,45 +1,17 @@
-var model = require('nodejs-model'),
-	uuid = require('node-uuid');
+var mongoose = require('mongoose'),
+	Schema = mongoose.Schema;
 
 module.exports = function (app) {
-	var redis = app.db.redis;
+	var schema = Schema({
+		role: String,
+		created: { type: Date, default: Date.now },
+		name: String,
+		email: String,
 
-	var User = app.models.user = model('User')
-		.attr('id', {
-			tags: ['private']
-		})
-		.attr('role', {
-			tags: ['private']
-		})
-		.attr('creation_date', {
-			tags: ['private']
-		})
-		.attr('name')
-		.attr('email')
-		.attr('type')
-		.attr('google_id', {
-			tags: ['accounts']
-		})
-		.attr('github_id', {
-			tags: ['accounts']
-		})
-		.attr('yandex_id', {
-			tags: ['accounts']
-		})
-		.attr('totp_key', {
-			tags: ['multifactor']
-		})
-		.attr('totp_period', {
-			tags: ['multifactor']
-		});
+		accounts: [{ type: Schema.Types.ObjectId, ref: 'Account' }],
+		secondFactors: [{ type: Schema.Types.ObjectId, ref: 'SecondFactor' }]
+	});
 
-	model.patch(User, 'users');
-
-	User.init = function (instance) {
-		instance.creationDate(+new Date());
-		instance.id(uuid.v4());
-		instance.type('simple');
-	};
 
 	/**
 	 * Authenticates current user or create account
@@ -49,69 +21,59 @@ module.exports = function (app) {
 	 * @param data
 	 * @param done
 	 */
-	User.auth = function (req, provider, id, data, done) {
-		var instance,
-			providerField = provider + 'Id';
-
-		function callback(error, instance) {
+	schema.statics.auth = function (req, provider, id, data, done) {
+		function callback(error, user) {
 			if (error) {
 				done(error);
 				return;
 			}
 
-			instance[providerField](id);
-			instance.defaults(data);
+			var account = new app.models.Account();
 
-			redis.set('accounts:' + provider + ':' + id, instance.id());
+			account.provider = provider;
+			account.identifier = id;
+			account.user = user.id;
 
-			User.save(instance, done);
+			account.save(function () {
+				user.accounts.push(account.id);
+				user.save(done);
+			});
 		}
 
-		if (req.user) {
-			// already logged in user
-			instance = req.user;
-
-			if (instance[providerField]()) {
-				// already got it, remove reference
-				redis.del('accounts:' + provider + ':' + instance[providerField]());
-			}
-
-			callback(null, instance);
-		} else {
-			// try to find one
-			redis.get('accounts:' + provider + ':' + id, function (error, id) {
+		app.models.Account
+			.findOne({
+				identifier: id,
+				provider: provider
+			},
+			function (error, account) {
+				console.log(error, account);
 				if (error) {
 					done(error);
 					return;
 				}
 
-				if (id) {
-					User.load(id, callback);
+				if (account) {
+					if (account.user.toString() === req.user.id.toString()) {
+						done(null, req.user);
+					} else {
+						User.findById(account.user, callback);
+					}
 				} else {
-					callback(null, User.create());
+					callback(null, req.user || new User());
 				}
 			});
-		}
 	};
 
-	User.remove = function (id, done) {
-		var queue = redis.multi();
+	schema.post('remove', function (user) {
+		console.log('user was removed');
 
-		queue.del('users:' + id);
+		user.accounts
+			.forEach(function (account) {
+				console.log('removing account');
 
-		redis.keys('accounts:*:' + id, function (error, keys) {
-			if (error) {
-				done(error);
-				return;
-			}
+				app.models.Account.remove(account.id || account);
+			});
+	});
 
-			if (keys) {
-				keys.forEach(function (key) {
-					queue.del(key);
-				});
-			}
-
-			queue.exec(done);
-		});
-	};
+	var User = app.models.User = mongoose.model('User', schema);
 };
