@@ -1,7 +1,7 @@
 {
   "name": "mah-nigga",
   "version": "0.0.1",
-  "description": "Boilerplate for node.js projects",
+  "private": true,
   "main": "server.js",
   "scripts": {
     "test": "grunt test"
@@ -50,6 +50,7 @@
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-stylus": "^0.16.0",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-nodemon": "^0.2.1"
+    "grunt-nodemon": "^0.2.1",
+    "grunt-preen": "^1.0.0"
   }
 }

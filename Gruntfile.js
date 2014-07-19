@@ -104,7 +104,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-concurrent');
 	grunt.loadNpmTasks('grunt-nodemon');
+	grunt.loadNpmTasks('grunt-preen');
 
-	grunt.registerTask('test', 'jshint');
-	grunt.registerTask('default', ['concurrent:watch']);
+	grunt.registerTask('default', ['nodemon']);
 };

@@ -1,0 +1,25 @@
+{
+  "name": "mah-nigga",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "requirejs": "~2.1.14",
+    "backbone": "~1.1.2",
+    "jquery": "~2.1.1"
+  },
+  "preen": {
+    "jquery": [
+	  "dist/*.js",
+	  "dist/*.map"
+    ],
+	"requirejs": [
+		"require.js"
+	],
+	"underscore": [
+		"underscore.js"
+	],
+	"backbone": [
+		"backbone.js"
+	]
+  }
+}

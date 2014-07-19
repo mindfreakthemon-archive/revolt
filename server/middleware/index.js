@@ -25,7 +25,7 @@ module.exports = function (app) {
 	});
 
 	app.require('./access');
-	app.require('./routes');
+	app.require('../routes');
 	app.require('./error');
 
 	app.use(function (req, res) {
