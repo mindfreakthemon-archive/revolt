@@ -34,12 +34,16 @@ module.exports = function (grunt) {
 			}
 		},
 
-		clean: ['static/css', 'static/js/templates.js'],
+		clean: [
+			'client/public/vendor',
+			'client/public/manifest.appcache',
+			'client/public/css'
+		],
 
 		jade: {
 			templates: {
 				files: {
-					'static/js/templates.js': 'src/jade/**/*.jade'
+					'client/public/templates.js': 'client/src/jade/**/*.jade'
 				},
 				options: {
 					amd: true,
@@ -54,16 +58,16 @@ module.exports = function (grunt) {
 		stylus: {
 			css: {
 				expand: true,
-				cwd: 'src/styl',
+				cwd: 'client/src/styl',
 				src: ['**/*.styl'],
-				dest: 'static/css',
+				dest: 'client/public/css',
 				ext: '.css'
 			}
 		},
 
 		watch: {
 			templates: {
-				files: ['src/jade/**/*.jade'],
+				files: ['client/src/jade/**/*.jade'],
 				tasks: ['jade:templates'],
 				options: {
 					atBegin: true
@@ -71,7 +75,7 @@ module.exports = function (grunt) {
 			},
 
 			stylus: {
-				files: ['src/styles/**/*.styl'],
+				files: ['client/src/styles/**/*.styl'],
 				tasks: ['stylus:css'],
 				options: {
 					atBegin: true
@@ -86,6 +90,18 @@ module.exports = function (grunt) {
 			}
 		},
 
+		appcache: {
+			options: {
+				basePath: './client/public/'
+			},
+			all: {
+				dest: './client/public/manifest.appcache',
+				cache: './client/public/**/*',
+				network: '*'//,
+//				fallback: '/ /offline.html'
+			}
+		}
+,
 		concurrent: {
 			watch: {
 				tasks: ['nodemon', 'watch:templates', 'watch:stylus', 'watch:livereload'],
@@ -105,6 +121,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-concurrent');
 	grunt.loadNpmTasks('grunt-nodemon');
 	grunt.loadNpmTasks('grunt-preen');
+	grunt.loadNpmTasks('grunt-appcache');
 
 	grunt.registerTask('default', ['nodemon']);
 };

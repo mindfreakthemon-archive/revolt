@@ -27,6 +27,9 @@ node_modules
 # Client dependency directory
 client/public/vendor
 
+# Cache manifest
+client/public/manifest.appcache
+
 # Intellij IDEA Workspace
 *.iws
 
