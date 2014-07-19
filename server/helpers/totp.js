@@ -9,7 +9,7 @@ module.exports = function (app) {
 			function (req, res, next) {
 				var user = req.user;
 
-				if (user.totpKey() && !req.session.totp) {
+				if (user.totp.enabled && !req.session.totp) {
 					req.session.returnTo = req.originalUrl || req.url;
 					res.redirect(totpKey);
 					return;
@@ -17,5 +17,18 @@ module.exports = function (app) {
 
 				next();
 			}];
+	};
+
+	app.helpers.totpConfigured = function (url) {
+		return function (req, res, next) {
+			var user = req.user;
+
+			if (!user.totp.key || !user.totp.period) {
+				res.redirect(url);
+				return;
+			}
+
+			next();
+		};
 	};
 };

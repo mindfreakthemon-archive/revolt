@@ -1,7 +1,8 @@
 var session = require('express-session'),
 	RedisStore = require('connect-redis')(session),
 	cookieParser = require('cookie-parser'),
-	passport = require('passport');
+	passport = require('passport'),
+	flash = require('connect-flash');
 
 module.exports = function (app) {
 	app.use(cookieParser(app.conf.get('cookie.secret')));
@@ -21,6 +22,8 @@ module.exports = function (app) {
 		resave: false,
 		saveUninitialized: false
 	}));
+
+	app.use(flash());
 
 	app.use(passport.initialize());
 	app.use(passport.session());

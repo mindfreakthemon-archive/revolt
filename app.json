@@ -10,17 +10,17 @@
 		"postdeploy": "echo 1"
 	},
 	"env": {
-		"cookie__secret": {
+		"COOKIE_SECRET": {
 			"description": "A secret key for verifying the integrity of signed cookies.",
 			"generator": "secret"
 		},
-		"session__secret": {
+		"SESSION_SECRET": {
 			"description": "A secret key for verifying the integrity of session cookies.",
 			"generator": "secret"
 		}
 	},
 	"addons": [
-		"redistogo:nano",
-		"redismonitor:free"
+		"redistogo",
+		"mongohq"
 	]
 }

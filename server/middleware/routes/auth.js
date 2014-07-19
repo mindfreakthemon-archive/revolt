@@ -15,7 +15,6 @@ module.exports = function (app) {
 		})
 
 		.get('/google', passport.authenticate('google'))
-
 		.get('/google/callback',
 		passport.authenticate('google', {
 			failureRedirect: '/auth/login'
@@ -23,19 +22,14 @@ module.exports = function (app) {
 		app.helpers.loggedTo('/'))
 
 		.get('/github', passport.authenticate('github'))
-
 		.get('/github/callback',
 		passport.authenticate('github', {
 			failureRedirect: '/auth/login'
 		}),
 		app.helpers.loggedTo('/'))
 
-		.get('/login',
-		app.helpers.loggedOut('/'),
-		app.helpers.redirect('/'))
-
 		.get('/logout',
-		app.helpers.loggedIn('login'),
+		app.helpers.loggedIn('/'),
 		function (req, res) {
 			req.logout();
 			res.redirect('/');

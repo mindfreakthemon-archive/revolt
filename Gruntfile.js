@@ -26,12 +26,10 @@ module.exports = function (grunt) {
 			server: {
 				script: 'server.js',
 				options: {
-					ignore: ['node_modules/**'],
 					watch: [
 						'server.js',
 						'server/**/*.js'
-					],
-					legacyWatch: true
+					]
 				}
 			}
 		},
@@ -64,15 +62,6 @@ module.exports = function (grunt) {
 		},
 
 		watch: {
-			jshint: {
-				files: [
-					'Gruntfile.js',
-					'server.js',
-					'server/**/*.js'
-				],
-				tasks: ['jshint:main']
-			},
-
 			templates: {
 				files: ['src/jade/**/*.jade'],
 				tasks: ['jade:templates'],
@@ -99,7 +88,10 @@ module.exports = function (grunt) {
 
 		concurrent: {
 			watch: {
-				tasks: ['watch:templates', 'watch:less', 'watch:livereload']
+				tasks: ['nodemon', 'watch:templates', 'watch:stylus', 'watch:livereload'],
+				options: {
+					logConcurrentOutput: true
+				}
 			}
 		}
 	});

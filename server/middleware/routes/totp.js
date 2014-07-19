@@ -27,7 +27,7 @@ module.exports = function (app) {
 				protocol: 'otpauth',
 				slashes: true,
 				hostname: 'totp',
-				pathname: req.user.id(),
+				pathname: req.user.id,
 				query: {
 					secret: encodedKey,
 					period: period
@@ -52,42 +52,40 @@ module.exports = function (app) {
 				time: period
 			});
 
-			if (result) {
-				user.update({
-					totp_key: key,
-					totp_period: period
-				}, ['multifactor']);
-
-				console.log(user.toJSON('*'));
-
-				user.save(function () {
-					res.redirect('/totp');
-				});
-
+			if (!result) {
+				res.redirect('/totp');
 				return;
 			}
 
-			res.redirect('/totp');
+			user.totp.key = key;
+			user.totp.period = period;
+
+			user.save(function () {
+				res.redirect('/totp');
+			});
+		})
+
+		// to ensure it is configured
+		.all('/enable', app.helpers.totpConfigured('/totp/setup'))
+
+		.get('/enable', app.helpers.render('totp/enable'))
+		.post('/enable', function (req, res) {
+			var user = req.user;
+
+			user.totp.enabled = true;
+			user.save(function () {
+				res.respond('success', 0, 'TOTP was enabled', '/totp');
+			});
 		})
 
 		.get('/disable', app.helpers.render('totp/disable'))
 		.post('/disable', function (req, res) {
 			var user = req.user;
 
-			if (user.totpKey()) {
-				user.update({
-					totp_key: null,
-					totp_period: null
-				}, ['multifactor']);
-
-				user.save(function () {
-					res.redirect('/totp');
-				});
-
-				return;
-			}
-
-			res.redirect('/totp');
+			user.totp.enabled = false;
+			user.save(function () {
+				res.respond('success', 0, 'TOTP was disabled', '/totp');
+			});
 		})
 
 		.get('/verify', app.helpers.render('totp/verify'))

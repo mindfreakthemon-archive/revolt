@@ -8,10 +8,18 @@ module.exports = function (app) {
 		name: String,
 		email: String,
 
-		accounts: [{ type: Schema.Types.ObjectId, ref: 'Account' }],
-		secondFactors: [{ type: Schema.Types.ObjectId, ref: 'SecondFactor' }]
+		accounts: [
+			Schema({
+				identifier: String,
+				provider: String
+			})
+		],
+		totp: {
+			enabled: Boolean,
+			key: String,
+			period: String
+		}
 	});
-
 
 	/**
 	 * Authenticates current user or create account
@@ -22,58 +30,35 @@ module.exports = function (app) {
 	 * @param done
 	 */
 	schema.statics.auth = function (req, provider, id, data, done) {
-		function callback(error, user) {
+		User.findOne({
+			'accounts.identifier': id,
+			'accounts.provider': provider
+		},
+		function (error, user) {
 			if (error) {
 				done(error);
 				return;
 			}
 
-			var account = new app.models.Account();
+			if (user && req.user) {
+				// if req.user is user
+				// then it's not an initial log in
+				// otherwise req.user is trying to steal
+				// an account from user
+				done(!user.equals(req.user), req.user);
+				return;
+			}
 
-			account.provider = provider;
-			account.identifier = id;
-			account.user = user.id;
+			user = user || req.user || new User();
 
-			account.save(function () {
-				user.accounts.push(account.id);
-				user.save(done);
+			user.accounts.push({
+				provider: provider,
+				identifier: id
 			});
-		}
 
-		app.models.Account
-			.findOne({
-				identifier: id,
-				provider: provider
-			},
-			function (error, account) {
-				console.log(error, account);
-				if (error) {
-					done(error);
-					return;
-				}
-
-				if (account) {
-					if (account.user.toString() === req.user.id.toString()) {
-						done(null, req.user);
-					} else {
-						User.findById(account.user, callback);
-					}
-				} else {
-					callback(null, req.user || new User());
-				}
-			});
+			user.save(done);
+		});
 	};
-
-	schema.post('remove', function (user) {
-		console.log('user was removed');
-
-		user.accounts
-			.forEach(function (account) {
-				console.log('removing account');
-
-				app.models.Account.remove(account.id || account);
-			});
-	});
 
 	var User = app.models.User = mongoose.model('User', schema);
 };

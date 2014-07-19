@@ -10,16 +10,23 @@ module.exports = function (app) {
 	app.require('./session');
 
 	app.use(function (req, res, next) {
+		/**
+		 * @type {function(type:String, code:Number, message:String, url:String)}
+		 */
+		res.respond = app.helpers.respond.bind(null, req, res);
+
+		res.locals.flash = req.flash.bind(req);
 		res.locals.user = req.user;
 		res.locals.session = req.session;
 		res.locals.request = req;
 		res.locals.response = res;
+
 		next();
 	});
 
-	app.require('./logs/access');
+	app.require('./access');
 	app.require('./routes');
-	app.require('./logs/error');
+	app.require('./error');
 
 	app.use(function (req, res) {
 		res.status(404);

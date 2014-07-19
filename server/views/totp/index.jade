@@ -1,13 +1,13 @@
 extends ../layout
 
 block content
-	= JSON.stringify(user.toJSON('*'))
 	h1 2nd factor is &nbsp;
-		if user.totpKey()
+		if user.totp.enabled
 			| enabled
 		else
 			| disabled
-	if user.totpKey()
+	if user.totp.enabled
 		a(href='/totp/disable') Disable
 	else
 		a(href='/totp/setup') Setup
+		a(href='/totp/enable') Enable

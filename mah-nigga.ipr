@@ -32,33 +32,12 @@
   <component name="ProjectDictionaryState">
     <dictionary name="mindfreakthemon">
       <words>
+        <w>livereload</w>
         <w>multifactor</w>
         <w>resave</w>
         <w>totp</w>
       </words>
     </dictionary>
-  </component>
-  <component name="ProjectInspectionProfilesVisibleTreeState">
-    <entry key="Project Default">
-      <profile-state>
-        <expanded-state>
-          <State>
-            <id />
-          </State>
-          <State>
-            <id>Gradle</id>
-          </State>
-          <State>
-            <id>Probable bugsGradle</id>
-          </State>
-        </expanded-state>
-        <selected-state>
-          <State>
-            <id>Abstraction issues</id>
-          </State>
-        </selected-state>
-      </profile-state>
-    </entry>
   </component>
   <component name="ProjectKey">
     <option name="state" value="git@github.com:mindfreakthemon/mah-nigga.git" />

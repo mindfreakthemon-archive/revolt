@@ -1,9 +1,6 @@
 var mailer = require('express-mailer');
 
 module.exports = function (app) {
-	// temp
-	return;
-
 	mailer.extend(app, app.conf.get('mailer'));
 
 	app.logger.info('installed mailer');
