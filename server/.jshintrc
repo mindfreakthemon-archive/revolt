@@ -1,0 +1,3 @@
+{
+	"predef": ["___filename", "__dirname", "module"]
+}
