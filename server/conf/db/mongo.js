@@ -5,6 +5,11 @@ module.exports = function (app) {
 	var client,
 		endpoint = app.conf.get('mongo');
 
+	if (!endpoint) {
+		app.logger.log('no mongo instance was defined');
+		return;
+	}
+
 	app.logger.info('connecting to mongodb');
 
 	mongoose.connect(endpoint);

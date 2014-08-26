@@ -66,4 +66,6 @@ module.exports = function (app) {
 			return result;
 		}
 	};
+
+	app.Router = express.Router;
 };

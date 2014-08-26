@@ -1,8 +1,5 @@
-var express = require('express'),
-	passport = require('passport');
-
 module.exports = function (app) {
-	var router = express.Router();
+	var router = app.Router();
 
 	router
 		.all('*', app.helpers.loggedIn('/auth/login'))

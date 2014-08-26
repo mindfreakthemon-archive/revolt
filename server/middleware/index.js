@@ -4,7 +4,7 @@ var express = require('express'),
 module.exports = function (app) {
 	app.use('/static', express.static('static'));
 
-	helmet.defaults(app);
+	helmet(app);
 
 	app.require('./body');
 	app.require('./session');

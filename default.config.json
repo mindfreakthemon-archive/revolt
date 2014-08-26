@@ -1,9 +1,19 @@
 {
+	"version": "0.0.1",
 	"port": 8080,
+	"express": {
+		"views": "./views",
+		"engine": "jade",
+		"cache": false
+	},
 	"session": {
 		"prefix": "session:",
 		"maxAge": 172800000,
-		"secret": "default"
+		"secret": "default",
+		"store": "redis",
+		"httpOnly": true,
+		"secure": false,
+		"path": "/"
 	},
 	"cookie": {
 		"secret": "default"
@@ -15,7 +25,7 @@
 		}
 	},
 	"mongo": "mongodb://localhost/mongodb",
-	"redis": "redis://localhost",
+	"redis": "redis://localhost:6379",
 	"mailer": {
 		"from": "no-reply@example.com",
 		"host": "smtp.gmail.com",

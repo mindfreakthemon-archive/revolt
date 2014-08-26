@@ -1,16 +1,20 @@
-var express = require('express'),
-	passport = require('passport');
+var passport = require('passport');
 
 module.exports = function (app) {
-	var router = express.Router();
+	var router = app.Router();
 
 	router
 		.all('*', function (req, res, next) {
 			var url = req.protocol + '://' + req.get('host');
 
-			passport._strategies.google._relyingParty.returnUrl = url + '/auth/google/callback';
-			passport._strategies.google._relyingParty.realm = url;
-			passport._strategies.github._callbackURL = url + '/auth/github/callback';
+			if (passport._strategies.google) {
+				passport._strategies.google._relyingParty.returnUrl = url + '/auth/google/callback';
+				passport._strategies.google._relyingParty.realm = url;
+			}
+
+			if (passport._strategies.github) {
+				passport._strategies.github._callbackURL = url + '/auth/github/callback';
+			}
 			next();
 		})
 

@@ -100,8 +100,20 @@ module.exports = function (grunt) {
 				network: '*'//,
 //				fallback: '/ /offline.html'
 			}
-		}
-,
+		},
+
+		bower: {
+			install: {
+				options: {
+					targetDir: './client/public/vendor/',
+					layout: 'byComponent',
+					install: true,
+					cleanup: true,
+					bowerOptions: {}
+				}
+			}
+		},
+
 		concurrent: {
 			watch: {
 				tasks: ['nodemon', 'watch:templates', 'watch:stylus', 'watch:livereload'],
@@ -120,8 +132,10 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-concurrent');
 	grunt.loadNpmTasks('grunt-nodemon');
-	grunt.loadNpmTasks('grunt-preen');
+	grunt.loadNpmTasks('grunt-bower-task');
 	grunt.loadNpmTasks('grunt-appcache');
 
+	grunt.registerTask('assets', ['bower:install']);
+	grunt.registerTask('test', ['jshint']);
 	grunt.registerTask('default', ['nodemon']);
 };

@@ -1,12 +1,11 @@
-var express = require('express'),
-	passport = require('passport'),
+var passport = require('passport'),
 	crypto = require('crypto'),
 	base32 = require('thirty-two'),
 	totp = require('notp').totp,
 	url = require('url');
 
 module.exports = function (app) {
-	var router = express.Router();
+	var router = app.Router();
 
 	router
 		.get('/', app.helpers.render('totp/index'))

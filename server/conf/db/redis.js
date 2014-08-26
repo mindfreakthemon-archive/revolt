@@ -4,12 +4,18 @@ var redis = require('redis'),
 module.exports = function (app) {
 	var client,
 		endpoint = app.conf.get('redis'),
-		params = url.parse(endpoint);
+		params;
 
+	if (!endpoint) {
+		app.logger.log('no redis instance was defined');
+		return;
+	}
+
+	params = url.parse(endpoint);
 	client = redis.createClient(params.port, params.hostname);
 
 	if (params.auth) {
-		client.auth(params.auth.split(':')[1]);
+		client.auth(params.auth.split(':').pop());
 	}
 
 	if (params.pathname && params.pathname.length > 1) {

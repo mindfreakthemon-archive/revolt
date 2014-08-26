@@ -8,22 +8,21 @@
     "jquery": "~2.1.1",
     "jsSHA": "~1.5.0"
   },
-  "preen": {
-    "jquery": [
-      "dist/*.js",
-      "dist/*.map"
-    ],
-    "requirejs": [
-      "require.js"
-    ],
-    "underscore": [
-      "underscore.js"
-    ],
-    "backbone": [
-      "backbone.js"
-    ],
-    "jsSHA": [
-      "src/*.js"
-    ]
+  "exportsOverride": {
+    "requirejs": {
+      "js": "require.js"
+    },
+	"jquery": {
+	  "js": ["dist/*.js", "dist/*.map"]
+	},
+	"backbone": {
+	  "js": "backbone.js"
+	},
+	"underscore": {
+	  "js": "underscore.js"
+	},
+	"jsSHA": {
+	  "js": "src/*.js"
+	}
   }
 }

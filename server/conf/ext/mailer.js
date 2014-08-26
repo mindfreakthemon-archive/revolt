@@ -1,7 +1,14 @@
 var mailer = require('express-mailer');
 
 module.exports = function (app) {
-	mailer.extend(app, app.conf.get('mailer'));
+	var options = app.conf.get('mailer');
+
+	if (!options) {
+		app.logger.info('mailer is not configured');
+		return;
+	}
+
+	mailer.extend(app, options);
 
 	app.logger.info('installed mailer');
 

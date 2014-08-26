@@ -1,0 +1,27 @@
+{
+	"port": {
+		"default": null,
+		"format": "port",
+		"env": "PORT"
+	},
+	"redis": {
+		"default": null,
+		"format": "url",
+		"env": "REDISTOGO_URL"
+	},
+	"mongo": {
+		"default": null,
+		"format": "url",
+		"env": "MONGOHQ_URL"
+	},
+	"session.secret": {
+		"default": null,
+		"format": "*",
+		"env": "SESSION_SECRET"
+	},
+	"cookie.secret": {
+		"default": null,
+		"format": "*",
+		"env": "COOKIE_SECRET"
+	}
+}
