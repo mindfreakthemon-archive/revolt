@@ -1,4 +1,4 @@
-mah-nigga
+README
 =========
 
 Boilerplate for node.js projects

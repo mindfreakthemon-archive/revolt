@@ -1,21 +1,15 @@
 {
-	"name": "Mah-nigga site",
-	"description": "Some desc to feel.",
+	"name": "App name",
+	"description": "Generic description",
 	"keywords": [],
-	"website": "https://nigga.middle-of-nowhere.name/",
-	"repository": "https://github.com/mindfreakthemon/mah-nigga",
-	"logo": "https://nigga.middle-of-nowhere.name/static/logo.png",
 	"success_url": "/",
-	"scripts": {
-		"postdeploy": "echo 1"
-	},
 	"env": {
 		"COOKIE_SECRET": {
-			"description": "A secret key for verifying the integrity of signed cookies.",
+			"description": "A secret key for verifying the integrity of signed cookies",
 			"generator": "secret"
 		},
 		"SESSION_SECRET": {
-			"description": "A secret key for verifying the integrity of session cookies.",
+			"description": "A secret key for verifying the integrity of session cookies",
 			"generator": "secret"
 		}
 	},

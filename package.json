@@ -1,22 +1,13 @@
 {
-  "name": "mah-nigga",
+  "name": "app",
   "version": "0.0.1",
   "private": true,
-  "main": "server/server.js",
   "scripts": {
+	"start": "node server/server.js",
     "test": "grunt test",
     "postinstall": "grunt assets"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/mindfreakthemon/mah-nigga.git"
-  },
-  "author": "Monday Freelem <mfthemon@gmail.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mindfreakthemon/mah-nigga/issues"
-  },
-  "homepage": "https://github.com/mindfreakthemon/mah-nigga",
   "dependencies": {
     "body-parser": "^1.4.3",
     "caller-id": "^0.1.0",

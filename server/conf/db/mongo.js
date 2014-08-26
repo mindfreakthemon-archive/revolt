@@ -16,7 +16,9 @@ module.exports = function (app) {
 
 	client = mongoose.connection;
 
-	client.on('error', app.logger.error.bind(app.logger, 'mongodb connection error:'));
+	client.on('error', function (error) {
+		app.logger.error('mongodb connection error:', error.toString());
+	});
 
 	client.once('open', function () {
 		app.logger.info('mongodb client is ready');

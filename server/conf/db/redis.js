@@ -24,7 +24,9 @@ module.exports = function (app) {
 		});
 	}
 
-	client.on('error', app.logger.error.bind(app.logger, 'redis connection error:'));
+	client.on('error', function (error) {
+		app.logger.error('redis connection error:', error.toString());
+	});
 
 	client.on('ready', function () {
 		app.logger.info('redis client is ready');
