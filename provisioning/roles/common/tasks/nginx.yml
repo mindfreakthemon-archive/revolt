@@ -1,0 +1,9 @@
+- name: create nginx vhost file
+  template: dest=/etc/nginx/conf.d/revolt.conf src=revolt.nginx.conf.j2
+  notify: restart nginx
+
+- name: setup nginx service
+  action: service name=nginx state=started enabled=yes
+
+- name: create readmy.html file with box description
+  template: dest=/usr/share/nginx/html/readme.html src=readme.html.j2

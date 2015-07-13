@@ -1,0 +1,12 @@
+- name: install yum stuff
+  yum: name={{item}} state=present
+  with_items:
+    - unzip
+    - gcc-c++
+    - nginx
+    - redis
+    - nodejs
+    - npm
+    - libselinux-python
+    - mongo-10gen
+    - mongo-10gen-server

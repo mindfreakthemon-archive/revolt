@@ -1,0 +1,15 @@
+- name: install libse bindings
+  yum: name={{item}} state=present
+  with_items:
+    - libselinux-python
+
+- include: repo.yml
+- include: yum.yml
+- include: npm.yml
+- include: nginx.yml
+- include: redis.yml
+- include: mongodb.yml
+- include: timezone.yml
+
+- name: fixing locale
+  command: localedef UTF-8 -ien_US -fUTF-8

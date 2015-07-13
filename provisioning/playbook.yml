@@ -1,0 +1,8 @@
+- name: apply common configuration to all nodes
+  hosts: all
+  remote_user: vagrant
+  sudo: yes
+
+  roles:
+    - galaxy/geerlingguy.repo-epel
+    - common

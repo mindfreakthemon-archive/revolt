@@ -1,0 +1,2 @@
+- name: setup redis-server service
+  service: name=redis enabled=yes state=started

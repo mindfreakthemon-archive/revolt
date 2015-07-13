@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-	"start": "node server/server.js",
-    "test": "grunt test",
-    "postinstall": "grunt assets"
+    "start": "node server/server.js",
+    "test": "gulp test",
+    "postinstall": "gulp assets"
   },
   "license": "MIT",
   "dependencies": {
@@ -34,17 +34,25 @@
     "winston": "^0.7.3"
   },
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-appcache": "^0.1.6",
-    "grunt-bower-task": "^0.4.0",
-    "grunt-cli": "*",
-    "grunt-concurrent": "^0.5.0",
-    "grunt-contrib-clean": "^0.5.0",
-    "grunt-contrib-connect": "^0.7.1",
-    "grunt-contrib-jade": "^0.12.0",
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-contrib-stylus": "^0.16.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-nodemon": "^0.2.1"
+    "del": "^1.2.0",
+    "gulp": "^3.8.11",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-babel": "^5.1.0",
+    "gulp-changed": "^1.2.1",
+    "gulp-concat": "^2.5.2",
+    "gulp-connect": "^2.2.0",
+    "gulp-if": "^1.2.5",
+    "gulp-insert": "^0.4.0",
+    "gulp-jade": "^1.0.0",
+    "gulp-jshint": "^1.10.0",
+    "gulp-manifest": "0.0.6",
+    "gulp-nodemon": "^2.0.3",
+    "gulp-plumber": "^1.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.5.1",
+    "gulp-stylus": "^2.0.1",
+    "gulp-wrap-amd": "^0.5.0",
+    "require-dir": "^0.3.0",
+    "through2": "^0.6.5"
   }
 }

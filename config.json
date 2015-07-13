@@ -1,5 +1,4 @@
 {
-	"port": 80,
 	"passport": {
 		"github": {
 			"client_id": "68be14ed92a55cbd7908",

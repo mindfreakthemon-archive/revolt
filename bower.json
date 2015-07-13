@@ -1,28 +1,6 @@
 {
-  "name": "app",
-  "version": "0.0.1",
-  "private": true,
-  "dependencies": {
-    "requirejs": "~2.1.14",
-    "backbone": "~1.1.2",
-    "jquery": "~2.1.1",
-    "jsSHA": "~1.5.0"
-  },
-  "exportsOverride": {
-    "requirejs": {
-      "js": "require.js"
-    },
-	"jquery": {
-	  "js": ["dist/*.js", "dist/*.map"]
-	},
-	"backbone": {
-	  "js": "backbone.js"
-	},
-	"underscore": {
-	  "js": "underscore.js"
-	},
-	"jsSHA": {
-	  "js": "src/*.js"
-	}
-  }
+	"name": "app",
+	"version": "0.0.1",
+	"private": true,
+	"dependencies": {}
 }

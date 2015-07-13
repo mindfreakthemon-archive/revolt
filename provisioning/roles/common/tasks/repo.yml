@@ -1,0 +1,2 @@
+- name: copy mongodb.repo to the remote
+  copy: src=mongodb.repo dest=/etc/yum.repos.d/mongodb.repo

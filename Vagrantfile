@@ -1,23 +1,23 @@
-Vagrant.configure("2") do |config|
-  #config.vm.box = "chef/ubuntu-14.04"
-  config.vm.box = "hashicorp/precise32"
+Vagrant.configure('2') do |config|
+  config.vm.box = 'parallels/centos-6.6'
 
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
-  config.vm.network "forwarded_port", guest: 5858, host: 5858
-  config.vm.network "forwarded_port", guest: 6379, host: 6379
-  config.vm.network "forwarded_port", guest: 27017, host: 27017
+  config.vm.network 'forwarded_port', guest: 8080, host: 8080
+  config.vm.network 'forwarded_port', guest: 5858, host: 5858
+  config.vm.network 'forwarded_port', guest: 6379, host: 6379
+  config.vm.network 'forwarded_port', guest: 27017, host: 27017
 
-  config.vm.provider "virtualbox" do |vb|
-     vb.customize ["modifyvm", :id, "--memory", "4096", "--cpus", "4", "--cpuexecutioncap", "100"]
+  config.vm.provision 'playbook', type: 'ansible' do |ansible|
+    ansible.playbook = 'provisioning/playbook.yml'
   end
 
-  config.vm.provision "shell", inline: "/usr/bin/apt-get update"
-
-  config.vm.provision "shell", inline: "/usr/bin/apt-get install -qq puppet"
-
-  config.vm.provision "puppet" do |puppet|
-    puppet.manifests_path = "puppet/manifests"
-    puppet.manifest_file = "server.pp"
-    puppet.module_path = "puppet/modules"
+  config.vm.provider 'parallels' do |v, override|
+    v.name = 'Revolt'
+    v.memory = 2048
+    v.cpus = 1
+    v.customize ['set', :id, '--on-window-close', 'keep-running']
+    v.optimize_power_consumption = false
+    v.update_guest_tools = false
   end
+
+  config.vm.network 'private_network', ip: '10.211.55.13'
 end
