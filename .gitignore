@@ -28,7 +28,7 @@ build/Release
 node_modules
 
 # Client dependency directory
-client/public/vendor
+client/public/lib
 
 # Cache manifest
 client/public/manifest.appcache
@@ -40,3 +40,6 @@ client/public/manifest.appcache
 
 # Vagrant
 .vagrant
+
+# Local config
+config.json

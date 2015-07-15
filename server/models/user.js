@@ -4,7 +4,10 @@ var mongoose = require('mongoose'),
 module.exports = function (app) {
 	var schema = Schema({
 		role: String,
-		created: { type: Date, default: Date.now },
+		created: {
+			type: Date,
+			default: Date.now
+		},
 		name: String,
 		email: String,
 
@@ -18,47 +21,18 @@ module.exports = function (app) {
 			enabled: Boolean,
 			key: String,
 			period: String
+		},
+		local: {
+			username: {
+				type: String,
+				index: { unique: true }
+			},
+			password: String
 		}
 	});
 
-	/**
-	 * Authenticates current user or create account
-	 * @param req
-	 * @param provider
-	 * @param id
-	 * @param data
-	 * @param done
-	 */
-	schema.statics.auth = function (req, provider, id, data, done) {
-		User.findOne({
-			'accounts.identifier': id,
-			'accounts.provider': provider
-		},
-		function (error, user) {
-			if (error) {
-				done(error);
-				return;
-			}
+	app.require('./user/auth', schema);
+	app.require('./user/local', schema);
 
-			if (user && req.user) {
-				// if req.user is user
-				// then it's not an initial log in
-				// otherwise req.user is trying to steal
-				// an account from user
-				done(!user.equals(req.user), req.user);
-				return;
-			}
-
-			user = user || req.user || new User();
-
-			user.accounts.push({
-				provider: provider,
-				identifier: id
-			});
-
-			user.save(done);
-		});
-	};
-
-	var User = app.models.User = mongoose.model('User', schema);
+	app.models.User = mongoose.model('User', schema);
 };

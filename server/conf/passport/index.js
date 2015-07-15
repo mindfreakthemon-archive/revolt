@@ -11,6 +11,10 @@ module.exports = function (app) {
 
 	var strategies = app.include('./auth');
 
+	/**
+	 * Here we include all of available strategies and
+	 * iterate through them configuring each of them
+	 */
 	Object.keys(strategies)
 		.forEach(function (authKey) {
 			var auth = strategies[authKey];

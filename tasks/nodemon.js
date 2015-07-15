@@ -3,7 +3,7 @@ var gulp = require('gulp'),
 
 gulp.task('nodemon', function () {
 	nodemon({
-		watch: 'server/server.js',
+		watch: 'server/**/*.js',
 		script: 'server/server.js',
 		env: {
 			NODE_DEBUG: 'request'

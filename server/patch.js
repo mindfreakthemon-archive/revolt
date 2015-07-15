@@ -6,6 +6,8 @@ var fs = require('fs'),
 module.exports = function (app) {
 	var keys = [
 		'helpers',
+		'forms',
+		'validators',
 		'models',
 		'db',
 		'conf',

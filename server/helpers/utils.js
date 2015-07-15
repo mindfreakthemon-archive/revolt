@@ -27,6 +27,11 @@ module.exports = function (app) {
 		};
 	};
 
+	/**
+	 * Matches the hostname
+	 * @param hostname
+	 * @returns {Function}
+	 * */
 	app.helpers.host = function (hostname) {
 		var pattern = (hostname || '*')
 				.replace(/\./g, '\\.')

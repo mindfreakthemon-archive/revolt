@@ -32,6 +32,12 @@ module.exports = function (app) {
 		}),
 		app.helpers.loggedTo('/'))
 
+		.post('/login',
+		passport.authenticate('local', {
+			failureRedirect: '/auth/login'
+		}),
+		app.helpers.loggedTo('/'))
+
 		.get('/logout',
 		app.helpers.loggedIn('/'),
 		function (req, res) {

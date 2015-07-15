@@ -20,6 +20,7 @@ module.exports = function (app) {
 		res.locals.session = req.session;
 		res.locals.request = req;
 		res.locals.response = res;
+		res.locals.app = app;
 
 		next();
 	});

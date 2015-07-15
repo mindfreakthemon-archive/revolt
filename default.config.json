@@ -2,7 +2,7 @@
 	"version": "0.0.1",
 	"port": 8080,
 	"express": {
-		"views": "./views",
+		"views": "./server/views",
 		"engine": "jade",
 		"cache": false
 	},

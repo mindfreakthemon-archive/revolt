@@ -1,0 +1,1 @@
+- add http://i18next.com/node/pages/doc_init.html
