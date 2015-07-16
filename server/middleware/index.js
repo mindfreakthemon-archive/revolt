@@ -9,6 +9,7 @@ module.exports = function (app) {
 	app.require('./body');
 	app.require('./session');
 
+	/* jshint unused:false */
 	app.use(function (req, res, next) {
 		/**
 		 * @type {function(type:String, code:Number, message:String, url:String)}

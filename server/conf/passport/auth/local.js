@@ -3,6 +3,7 @@ module.exports = {
 	verify: function (app, username, password, done) {
 		app.models.User.login(username, password, done);
 	},
+	/* jshint unused:false */
 	configure: function (conf) {
 		return {
 			usernameField: 'username',

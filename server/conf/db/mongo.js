@@ -1,5 +1,4 @@
-var mongoose = require('mongoose'),
-	url = require('url');
+var mongoose = require('mongoose');
 
 module.exports = function (app) {
 	var client,

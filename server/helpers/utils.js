@@ -1,5 +1,4 @@
-var express = require('express');
-
+/* jshint unused:false */
 module.exports = function (app) {
 	/**
 	 * Renders template. Simple stuff

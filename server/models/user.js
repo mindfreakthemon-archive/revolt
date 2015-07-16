@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 module.exports = function (app) {
-	var schema = Schema({
+	var schema = new Schema({
 		role: String,
 		created: {
 			type: Date,
@@ -12,7 +12,7 @@ module.exports = function (app) {
 		email: String,
 
 		accounts: [
-			Schema({
+			new Schema({
 				identifier: String,
 				provider: String
 			})
