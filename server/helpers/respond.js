@@ -1,5 +1,4 @@
 module.exports = function (app) {
-
 	app.helpers.respond = function (req, res, type, code, message, url) {
 		res.format({
 			html: function () {

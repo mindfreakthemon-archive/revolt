@@ -1,4 +1,4 @@
-var bodyParser = require('body-parser');
+import bodyParser from 'body-parser';
 
 module.exports = function (app) {
 	app.use(bodyParser.urlencoded({

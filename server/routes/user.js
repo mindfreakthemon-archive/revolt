@@ -1,20 +1,21 @@
 module.exports = function (app) {
-	var router = app.Router();
+	var router = app.express();
 
-	router
-		.all('*', app.helpers.loggedIn('/auth/login'))
+	router.on('mount', function () {
+		router
+			.all('*', app.helpers.loggedIn('/auth/login'))
 
-		.get('/remove',
-		function (req, res) {
-			var id = req.user.id;
+			.get('/remove',
+			function (req, res) {
+				var id = req.user.id;
 
-			req.logout();
+				req.logout();
 
-			app.models.User.findOneAndRemove(id, function () {
-				res.redirect('/');
+				app.models.User.findOneAndRemove(id, function () {
+					res.redirect('/');
+				});
 			});
-		});
-
+	});
 
 	app.use('/user', router);
 };

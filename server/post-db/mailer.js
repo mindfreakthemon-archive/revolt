@@ -1,4 +1,4 @@
-var mailer = require('express-mailer');
+import mailer from 'express-mailer';
 
 module.exports = function (app) {
 	var options = app.conf.get('mailer');

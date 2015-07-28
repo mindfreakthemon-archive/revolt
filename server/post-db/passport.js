@@ -1,4 +1,4 @@
-var passport = require('passport');
+import passport from 'passport';
 
 module.exports = function (app) {
 	passport.serializeUser(function (user, done) {
@@ -9,7 +9,7 @@ module.exports = function (app) {
 		app.models.User.findById(id, done);
 	});
 
-	var strategies = app.include('./auth');
+	var strategies = app.include('./passport.strategies');
 
 	/**
 	 * Here we include all of available strategies and

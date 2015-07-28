@@ -1,102 +1,105 @@
-var passport = require('passport'),
-	crypto = require('crypto'),
-	base32 = require('thirty-two'),
-	totp = require('notp').totp,
-	url = require('url');
+import passport from 'passport';
+import crypto from 'crypto';
+import base32 from 'thirty-two';
+import { totp } from 'notp';
+import url from 'url';
 
 module.exports = function (app) {
-	var router = app.Router();
+	var router = app.express();
 
-	router
-		.get('/', app.helpers.render('totp/index'))
+	router.on('mount', function () {
+		router
+			.get('/', app.helpers.render('totp/index'))
 
-		.get('/setup', function (req, res) {
-			var key, encodedKey, otpUrl,
-				period = 30;
+			.get('/setup', function (req, res) {
+				var key, encodedKey, otpUrl,
+					period = 30;
 
-			try {
-				key = crypto.randomBytes(5).toString('hex');
-			} catch (e) {
-				key = crypto.pseudoRandomBytes(5).toString('hex');
-			}
-
-			encodedKey = base32.encode(key).toString();
-
-			otpUrl = url.format({
-				protocol: 'otpauth',
-				slashes: true,
-				hostname: 'totp',
-				pathname: req.user.id,
-				query: {
-					secret: encodedKey,
-					period: period
+				try {
+					key = crypto.randomBytes(5).toString('hex');
+				} catch (e) {
+					key = crypto.pseudoRandomBytes(5).toString('hex');
 				}
-			});
 
-			res.render('totp/setup', {
-				encodedKey: encodedKey,
-				period: period,
-				key: key,
-				image: 'https://chart.googleapis.com/chart?chs=166x166&chld=L|0&cht=qr&chl=' + encodeURIComponent(otpUrl)
-			});
-		})
-		.post('/setup', function (req, res) {
-			var code = req.body.code,
-				key = req.body.key,
-				period = req.body.period,
-				user = req.user,
-				result;
+				encodedKey = base32.encode(key).toString();
 
-			result = totp.verify(code, key, {
-				time: period
-			});
+				otpUrl = url.format({
+					protocol: 'otpauth',
+					slashes: true,
+					hostname: 'totp',
+					pathname: req.user.id,
+					query: {
+						secret: encodedKey,
+						period: period
+					}
+				});
 
-			if (!result) {
-				res.redirect('/totp');
-				return;
-			}
+				res.render('totp/setup', {
+					encodedKey: encodedKey,
+					period: period,
+					key: key,
+					image: 'https://chart.googleapis.com/chart?chs=166x166&chld=L|0&cht=qr&chl=' + encodeURIComponent(otpUrl)
+				});
+			})
+			.post('/setup', function (req, res) {
+				var code = req.body.code,
+					key = req.body.key,
+					period = req.body.period,
+					user = req.user,
+					result;
 
-			user.totp.key = key;
-			user.totp.period = period;
+				result = totp.verify(code, key, {
+					time: period
+				});
 
-			user.save(function () {
-				res.redirect('/totp');
-			});
-		})
+				if (!result) {
+					res.redirect(router.mountpath);
+					return;
+				}
 
-		// to ensure it is configured
-		.all('/enable', app.helpers.totpConfigured('/totp/setup'))
+				user.totp.key = key;
+				user.totp.period = period;
 
-		.get('/enable', app.helpers.render('totp/enable'))
-		.post('/enable', function (req, res) {
-			var user = req.user;
+				user.save(function () {
+					res.redirect(router.mountpath);
+				});
+			})
 
-			user.totp.enabled = true;
-			user.save(function () {
-				res.respond('success', 0, 'TOTP was enabled', '/totp');
-			});
-		})
+			// to ensure it is configured
+			.all('/enable', app.helpers.totpConfigured(router.mountpath + '/setup'))
 
-		.get('/disable', app.helpers.render('totp/disable'))
-		.post('/disable', function (req, res) {
-			var user = req.user;
+			.get('/enable', app.helpers.render('totp/enable'))
+			.post('/enable', function (req, res) {
+				var user = req.user;
 
-			user.totp.enabled = false;
-			user.save(function () {
-				res.respond('success', 0, 'TOTP was disabled', '/totp');
-			});
-		})
+				user.totp.enabled = true;
+				user.save(function () {
+					res.respond('success', 0, 'TOTP was enabled', router.mountpath);
+				});
+			})
 
-		.get('/verify', app.helpers.render('totp/verify'))
-		.post('/verify',
-		passport.authenticate('totp', {
-			failureRedirect: '/totp/verify'
-		}),
-		function(req, res, next) {
-			req.session.totp = true;
-			next();
-		},
-		app.helpers.loggedTo('/'));
+			.get('/disable', app.helpers.render('totp/disable'))
+			.post('/disable', function (req, res) {
+				var user = req.user;
+
+				user.totp.enabled = false;
+				user.save(function () {
+					res.respond('success', 0, 'TOTP was disabled', router.mountpath);
+				});
+			})
+
+			.get('/verify', app.helpers.render('totp/verify'))
+			.post('/verify',
+			passport.authenticate('totp', {
+				failureRedirect: router.mountpath + '/verify'
+			}),
+			function(req, res, next) {
+				req.session.totp = true;
+				next();
+			},
+			app.helpers.loggedTo('/'));
+	});
+
 
 	app.use('/totp', router);
 };

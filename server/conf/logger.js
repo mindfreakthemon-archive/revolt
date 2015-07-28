@@ -1,4 +1,4 @@
-var winston = require('winston');
+import winston from 'winston';
 
 module.exports = function (app) {
 	app.logger = winston;

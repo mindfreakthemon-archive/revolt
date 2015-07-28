@@ -4,7 +4,7 @@ block content
 	| Hello World!
 	= user
 	ul
-		li: a(href='/auth/google') Google
+		li: a(href='/auth/google')= __('google')
 		li: a(href='/auth/github') GitHub
 		if user
 			li: a(href='/totp') Totp settings
@@ -13,9 +13,9 @@ block content
 
 	if !user
 		form(action='/auth/login', method='post')
-			!= app.forms.login.toHTML()
+			!= app.forms.login.render({ _csrf: request.csrfToken() })
 				input(type='submit', value='Log In')
 
 		form(action='/registration/', method='post')
-			!= app.forms.registration.toHTML()
+			!= app.forms.registration.render({ _csrf: request.csrfToken() })
 			input(type='submit', value='Register')

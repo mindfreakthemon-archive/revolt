@@ -1,23 +1,23 @@
-var forms = require('forms'),
-	fields = forms.fields,
-	validators = forms.validators;
+import forms from '../utils/forms';
 
 module.exports = function (app) {
 	app.forms.registration = forms.create({
-		username: fields.string({
+		username: app.fields.string({
 			required: true,
 			validators: [
-				app.validators.unique(app.models.User, 'local.username')]
-
-		}),
-		password: fields.password({ required: validators.required() }),
-		confirm: fields.password({
-			required: true,
-			validators: [
-				validators.matchField('password')
+				app.validators.unique(app.models.User, 'local.username')
 			]
 		}),
-		email: fields.email({
+		password: app.fields.password({
+			required: app.validators.required()
+		}),
+		confirm: app.fields.password({
+			required: true,
+			validators: [
+				app.validators.matchField('password')
+			]
+		}),
+		email: app.fields.email({
 			validators: [
 				app.validators.unique(app.models.User, 'email')
 			]

@@ -1,5 +1,5 @@
-var	winston = require('winston'),
-	logger = require('express-winston');
+import winston from 'winston';
+import logger from 'express-winston';
 
 module.exports = function (app) {
 	app.use(logger.logger({

@@ -1,5 +1,4 @@
-var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
+import { Schema, default as mongoose } from 'mongoose';
 
 module.exports = function (app) {
 	var schema = new Schema({
@@ -31,8 +30,8 @@ module.exports = function (app) {
 		}
 	});
 
-	app.require('./user/auth', schema);
-	app.require('./user/local', schema);
+	app.require('./user.parts/auth', schema);
+	app.require('./user.parts/local', schema);
 
 	app.models.User = mongoose.model('User', schema);
 };

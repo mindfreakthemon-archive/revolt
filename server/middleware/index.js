@@ -1,5 +1,7 @@
-var express = require('express'),
-	helmet = require('helmet');
+import express from 'express';
+import helmet from 'helmet';
+import csrf from 'csurf';
+import i18n from 'i18n';
 
 module.exports = function (app) {
 	app.use('/static', express.static('static'));
@@ -26,6 +28,9 @@ module.exports = function (app) {
 		next();
 	});
 
+	app.use(i18n.init);
+	app.use(csrf());
+
 	app.require('./access');
 	app.require('../routes');
 	app.require('./error');
@@ -38,10 +43,12 @@ module.exports = function (app) {
 		});
 	});
 
-	app.use(function (err, req, res, next) {
+	app.use(function (error, req, res, next) {
+		res.status(error.errorCode || 500);
+
 		res.render('error', {
-			code: 500,
-			error: err
+			code: error.errorCode,
+			error: error.msg
 		});
 	});
 };

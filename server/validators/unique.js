@@ -1,5 +1,4 @@
 module.exports = function (app) {
-
 	app.validators.unique = function (schema, path, message) {
 		message = message || 'This name is already taken.';
 

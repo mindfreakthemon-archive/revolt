@@ -1,8 +1,10 @@
-var session = require('express-session'),
-	RedisStore = require('connect-redis')(session),
-	cookieParser = require('cookie-parser'),
-	passport = require('passport'),
-	flash = require('connect-flash');
+import connectRedis from 'connect-redis';
+import session from 'express-session';
+import cookieParser from 'cookie-parser';
+import passport from 'passport';
+import flash from 'connect-flash';
+
+var RedisStore = connectRedis(session);
 
 module.exports = function (app) {
 	var store = null; // MemoryStore by default

@@ -1,12 +1,40 @@
 var fs = require('fs'),
 	path = require('path'),
-	express = require('express'),
-	callerId = require('caller-id');
+	express = require('express');
+
+function getCallerFile() {
+	var originalFunc = Error.prepareStackTrace;
+
+	var callerFile;
+	try {
+		var err = new Error(),
+			currentFile;
+
+		Error.prepareStackTrace = function (err, stack) {
+			return stack;
+		};
+
+		currentFile = err.stack.shift().getFileName();
+
+		while (err.stack.length) {
+			callerFile = err.stack.shift().getFileName();
+
+			if (currentFile !== callerFile) break;
+		}
+	} catch (e) {
+
+	}
+
+	Error.prepareStackTrace = originalFunc;
+
+	return callerFile;
+}
 
 module.exports = function (app) {
 	var keys = [
 		'helpers',
 		'forms',
+		'fields',
 		'validators',
 		'models',
 		'db',
@@ -19,8 +47,7 @@ module.exports = function (app) {
 
 	app.require = function (dirname) {
 		var args = Array.prototype.slice.call(arguments, 1), // w/o dir
-			caller = callerId.getData(),
-			resolved = path.resolve(path.dirname(caller.filePath), dirname),
+			resolved = path.resolve(path.dirname(getCallerFile()), dirname),
 			direct_file = path.extname(resolved) === '.js' ? resolved : resolved + '.js',
 			index_file = path.join(resolved, 'index.js');
 
@@ -43,8 +70,7 @@ module.exports = function (app) {
 	};
 
 	app.include = function (dirname) {
-		var caller = callerId.getData(),
-			resolved = path.resolve(path.dirname(caller.filePath), dirname),
+		var resolved = path.resolve(path.dirname(getCallerFile()), dirname),
 			direct_file = path.extname(resolved) === '.js' ? resolved : resolved + '.js',
 			index_file = path.join(resolved, 'index.js');
 
@@ -69,5 +95,19 @@ module.exports = function (app) {
 		}
 	};
 
-	app.Router = express.Router;
+	app.load = function () {
+		this.require('./conf');
+		this.require('./db');
+		this.require('./post-db');
+		this.require('./models');
+
+		this.require('./validators');
+		this.require('./fields');
+		this.require('./forms');
+
+		this.require('./helpers');
+		this.require('./middleware');
+	};
+
+	app.express = express;
 };

@@ -1,5 +1,5 @@
-var path = require('path'),
-	convict = require('convict');
+import convict from 'convict';
+import path from 'path';
 
 module.exports = function (app) {
 	var schema = require(path.resolve('schema.config.json')),
@@ -18,7 +18,4 @@ module.exports = function (app) {
 	}
 
 	app.require('./logger');
-	app.require('./ext');
-	app.require('./db');
-	app.require('./passport');
 };

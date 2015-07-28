@@ -1,5 +1,5 @@
-var bcrypt = require('bcrypt'),
-	shortid = require('shortid');
+import bcrypt from 'bcrypt';
+import shortid from 'shortid';
 
 const SALT_WORK_FACTOR = 10;
 
