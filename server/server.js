@@ -1,24 +1,26 @@
-var app = require('express')();
+var bootable = require('bootable');
+var express = require('express');
 
-require('./patch')(app);
+var app = bootable(express());
 
+app.db = {};
 app.root = __dirname;
 
-app.load();
+require('app-module-path').addPath(app.root);
 
-app.listen(app.conf.get('port'), function () {
-	app.logger.info('server started on port %d', app.conf.get('port'));
-//return;
-//	app.mailer.send('email/test', {
-//		to: 'mfthemon@gmail.com',
-//		subject: 'Test Email'
-//	}, function (error) {
-//		if (error) {
-//			console.log(error);
-//			return;
-//		}
-//
-//		console.log('mail was sent');
-//
-//	});
+app.phase(bootable.initializers(app.root + '/conf/init', app));
+app.phase(bootable.initializers(app.root + '/conf/pre-db', app));
+app.phase(bootable.initializers(app.root + '/conf/db', app));
+app.phase(bootable.initializers(app.root + '/conf/post-db', app));
+
+app.phase(bootable.routes(app.root + '/app/middleware/index.js', app));
+
+app.boot(function (error) {
+	if (error) {
+		throw error;
+	}
+
+	app.listen(app.conf.get('port'), function () {
+		app.logger.info('server started on port %d', app.conf.get('port'));
+	});
 });

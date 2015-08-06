@@ -1,0 +1,21 @@
+extends ../layout
+
+block content
+	| Hello World!
+	= user
+	ul
+		li: a(href='/auth/google')= __('google')
+		li: a(href='/auth/github') GitHub
+		if user
+			li: a(href='/totp') Totp settings
+			li: a(href='/auth/logout') Logout
+			li: a(href='/user/remove') Remove yourself
+
+	if !user
+		form(action='/auth/login', method='post')
+			!= loginForm.render()
+				input(type='submit', value='Log In')
+
+		form(action='/registration/', method='post')
+			!= registrationForm.render()
+			input(type='submit', value='Register')
