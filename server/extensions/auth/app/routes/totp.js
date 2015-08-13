@@ -11,6 +11,10 @@ import render from 'core/helpers/utils/render';
 import loggedTo from 'core/helpers/auth/loggedTo';
 import totpConfigured from 'core/helpers/totp/totpConfigured';
 
+import TOTPForm from 'core/forms/totp';
+
+const TOTP_RANDOM_BYTES = 5;
+const TOTP_PERIOD = 30;
 
 export default function () {
 	var router = express();
@@ -23,12 +27,13 @@ export default function () {
 
 			.get('/setup', function (req, res) {
 				var key, encodedKey, otpUrl,
-					period = 30;
+					form = new TOTPForm(req, res),
+					period = TOTP_PERIOD;
 
 				try {
-					key = crypto.randomBytes(5).toString('hex');
+					key = crypto.randomBytes(TOTP_RANDOM_BYTES).toString('hex');
 				} catch (e) {
-					key = crypto.pseudoRandomBytes(5).toString('hex');
+					key = crypto.pseudoRandomBytes(TOTP_RANDOM_BYTES).toString('hex');
 				}
 
 				encodedKey = base32.encode(key).toString();
@@ -44,7 +49,12 @@ export default function () {
 					}
 				});
 
+				form.data = {
+					key, period
+				};
+
 				res.render('totp/setup', {
+					totp: form,
 					encodedKey: encodedKey,
 					period: period,
 					key: key,
@@ -52,26 +62,39 @@ export default function () {
 				});
 			})
 			.post('/setup', function (req, res) {
-				var code = req.body.code,
-					key = req.body.key,
-					period = req.body.period,
-					user = req.user,
+				var user = req.user,
+					form = new TOTPForm(req, res),
 					result;
 
-				result = totp.verify(code, key, {
-					time: period
-				});
+				form.handle({
+					success: function (form) {
+						var code = form.data.code,
+							key = form.data.key,
+							period = form.data.period;
 
-				if (!result) {
-					res.redirect(router.mountpath);
-					return;
-				}
+						result = totp.verify(code, key, {
+							time: period
+						});
 
-				user.totp.key = key;
-				user.totp.period = period;
+						if (!result) {
+							res.respond('error', 1, 'Wrong code', router.mountpath);
 
-				user.save(function () {
-					res.redirect(router.mountpath);
+							res.redirect(router.mountpath);
+							return;
+						}
+
+						user.totp.key = key;
+						user.totp.period = period;
+
+						user.save(function () {
+							res.redirect(router.mountpath);
+						});
+					},
+					other: function () {
+						res.respond('error', 1, 'Wrong form', router.mountpath);
+
+						res.redirect(router.mountpath);
+					}
 				});
 			})
 

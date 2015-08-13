@@ -1,6 +1,7 @@
-extends ../layout
+extends /layout
 
 block content
 	h1 You sure you want to disable 2nd factod?
 	form(method='POST', action='/totp/disable')
+		input(type='hidden', name='_csrf', value=request.csrfToken())
 		button YES

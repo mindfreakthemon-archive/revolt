@@ -1,4 +1,6 @@
 export default function (app) {
+	this.locals.basedir = app.locals.basedir;
+
 	this.set('views', app.get('views'));
 	this.set('view engine', app.get('view engine'));
 	this.set('view cache', app.get('view cache'));

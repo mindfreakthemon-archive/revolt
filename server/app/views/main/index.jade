@@ -1,4 +1,4 @@
-extends ../layout
+extends /layout
 
 block content
 	| Hello World!
@@ -10,12 +10,3 @@ block content
 			li: a(href='/totp') Totp settings
 			li: a(href='/auth/logout') Logout
 			li: a(href='/user/remove') Remove yourself
-
-	if !user
-		form(action='/auth/login', method='post')
-			!= loginForm.render()
-				input(type='submit', value='Log In')
-
-		form(action='/registration/', method='post')
-			!= registrationForm.render()
-			input(type='submit', value='Register')

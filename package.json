@@ -10,7 +10,8 @@
   "license": "MIT",
   "babel": {
     "only": [
-      "server/**/*.js"
+      "server/**/*.js",
+      "server/*.js"
     ]
   },
   "dependencies": {
@@ -44,7 +45,6 @@
     "winston": "^1.0.1",
     "csurf": "~1.8.3",
     "bootable": "~0.2.4",
-    "electrolyte": "0.0.6",
     "babel-core": "~5.8.20",
     "app-module-path": "~1.0.3"
   },

@@ -1,4 +1,7 @@
 import forms from 'forms';
+import util from 'util';
+
+import bootstrap from 'core/forms/renderers/bootstrap';
 
 export default class Form {
 	constructor(fields, request, response) {
@@ -6,6 +9,7 @@ export default class Form {
 
 		this.request = request;
 		this.response = response;
+		this.renderer = bootstrap;
 		this.initialize();
 	}
 
@@ -17,15 +21,27 @@ export default class Form {
 	}
 
 	render(data) {
-		data = data || {};
+		var _data = {};
 
-		data._csrf = this.request.csrfToken();
+		util._extend(_data, data || {});
+		util._extend(_data, this.data || {});
+		util._extend(_data, this.request.body || {});
 
-		return this.form.bind(data).toHTML();
+		_data._csrf = this.request.csrfToken();
+
+		return this.form.bind(_data).toHTML(bootstrap);
 	}
 
 	handle(callbacks) {
-		this.form.handle(this.request, callbacks);
+		this.form.handle(this.request, this.renderer);
+	}
+
+	set data(value) {
+		this._data = value;
+	}
+
+	get data() {
+		return this._data;
 	}
 
 	static get validators() {

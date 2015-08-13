@@ -3,6 +3,9 @@ import passport from 'passport';
 
 import inherit from 'core/helpers/express/inherit';
 import loggedTo from 'core/helpers/auth/loggedTo';
+import render from 'core/helpers/utils/render';
+
+import LoginForm from 'core/forms/login';
 
 export default function () {
 	var router = express();
@@ -40,10 +43,21 @@ export default function () {
 			}),
 			loggedTo('/'))
 
+			.get('/login', render('auth/login'))
 			.post('/login',
-			passport.authenticate('local', {
-				failureRedirect: router.mountpath + '/login'
-			}),
+			function (req, res, next) {
+				passport.authenticate('local', function (err, user) {
+					//if (err) {
+					//	return next(err);
+					//}
+
+					if (!user) {
+						return res.render('auth/login');
+					}
+
+					req.login(user, next);
+				})(req, res, next);
+			},
 			loggedTo('/'))
 
 			.get('/logout',

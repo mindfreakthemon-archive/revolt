@@ -13,17 +13,14 @@ import cookieParser from 'cookie-parser';
 
 import respond from 'core/helpers/utils/respond';
 
-import main from 'app/routes/main';
-import auth from 'app/routes/auth';
-import user from 'app/routes/user';
-import totp from 'app/routes/totp';
-import registration from 'app/routes/registration';
-
 export default function () {
 	var app = this,
 		store = null;
 
-	app.use('/static', express.static('static'));
+	app.use('/', express.static('client', {
+		fallthrough: true,
+		maxAge: 5
+	}));
 
 	helmet(app);
 
@@ -103,37 +100,5 @@ export default function () {
 		]
 	}));
 
-	app.use('/auth', auth());
-	app.use('/registration', registration());
-	app.use('/totp', totp());
-	app.use('/user', user());
-	app.use('/', main());
-
-	app.use(logger.errorLogger({
-		transports: [
-			new winston.transports.Console({
-				json: true,
-				colorize: true
-			})
-		]
-	}));
-
-	app.use(function (req, res) {
-		res.status(404);
-
-		res.render('error', {
-			code: 404
-		});
-	});
-
-	app.use(function (error, req, res, next) {
-		res.status(error.errorCode || 500);
-
-		res.render('error', {
-			code: error.errorCode,
-			error: error.msg
-		});
-	});
-
-	app.logger.info('initialized all middlewares');
+	app.logger.info('initialized pre-app middlewares');
 };

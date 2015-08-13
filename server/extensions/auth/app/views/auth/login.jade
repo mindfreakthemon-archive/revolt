@@ -1,0 +1,7 @@
+extends /layout
+
+block content
+	h1 Login
+	form(method='POST', action='/auth/login')
+		!= login.render()
+		button YES

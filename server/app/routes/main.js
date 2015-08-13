@@ -13,21 +13,12 @@ export default function () {
 	router.on('mount', inherit);
 
 	router.get('/', function (req, res) {
-		res.render('main/index', {
-			loginForm: new LoginForm(req, res),
-			registrationForm: new RegistrationForm(req, res)
-		});
+		res.render('main/index');
 	});
 
 	router.get('/error', function () {
 		throw Error('sad');
 	});
-
-	//router.get('/lll', loggedInTotp('/auth/login', '/totp/verify'), function (req, res) {
-	//	res.send({
-	//		res: true
-	//	});
-	//});
 
 	return router;
 }

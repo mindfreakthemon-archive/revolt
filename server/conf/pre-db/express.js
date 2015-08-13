@@ -1,7 +1,18 @@
 export default function () {
-	var app = this;
+	var app = this,
+		basedir = app.root + '/app/views',
+		views = [basedir];
 
-	app.set('views', app.conf.get('express.views'));
+	// enable "extend /layout"
+	app.locals.basedir = basedir;
+
+	app.extensions
+		.reverse()
+		.forEach(function (extension) {
+			views.unshift(app.root + '/extensions/' + extension + '/app/views');
+		});
+
+	app.set('views', views);
 	app.set('view engine', app.conf.get('express.engine'));
 	app.set('view cache', app.conf.get('express.cache'));
 	app.enable('case sensitive routing');

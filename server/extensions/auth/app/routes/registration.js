@@ -16,6 +16,13 @@ export default function () {
 	router
 		.all('*', loggedOut('/'))
 
+		.get('/', function (req, res) {
+			var form = new RegistrationForm(req, res);
+
+			res.render('auth/registration', {
+				registration: form
+			});
+		})
 		.post('/',
 		function (req, res) {
 			var form = new RegistrationForm(req, res);
@@ -32,13 +39,10 @@ export default function () {
 						res.redirect('/');
 					});
 				},
-				error: function () {
-					// @TODO
-					res.redirect('/f');
-				},
-				empty: function () {
-					// @TODO
-					res.redirect('/a');
+				other: function () {
+					res.render('auth/registration', {
+						registration: form
+					});
 				}
 			});
 		});
