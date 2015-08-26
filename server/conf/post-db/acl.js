@@ -1,9 +1,9 @@
-import acl from 'acl';
+import ACL from 'acl';
 
 export default function () {
 	var app = this;
 
-	app.acl = new acl(new acl.mongodbBackend(app.db.mongo, 'acl_', true));
+	app.acl = new ACL(new ACL.mongodbBackend(app.db.mongo, 'acl_', true));
 
 	app.logger.info('initialized access control list');
 }

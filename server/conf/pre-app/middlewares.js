@@ -79,6 +79,7 @@ export default function () {
 		res.respond = respond.bind(null, req, res);
 
 		res.locals.flash = req.flash.bind(req);
+
 		res.locals.user = req.user;
 		res.locals.session = req.session;
 		res.locals.request = req;
