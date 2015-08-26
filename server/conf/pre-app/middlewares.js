@@ -1,7 +1,6 @@
 import express from 'express';
 import helmet from 'helmet';
 import csrf from 'csurf';
-import i18n from 'i18n';
 import flash from 'connect-flash';
 import passport from 'passport';
 import bodyParser from 'body-parser';
@@ -89,7 +88,6 @@ export default function () {
 		next();
 	});
 
-	app.use(i18n.init);
 	app.use(csrf());
 
 	app.use(logger.logger({

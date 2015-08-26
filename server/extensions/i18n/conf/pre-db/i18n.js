@@ -6,7 +6,7 @@ export default function () {
 	i18n.configure({
 		locales: ['en', 'ru'],
 		objectNotation: true,
-		directory: app.root + '/locales'
+		directory: app.root + '/extensions/locales'
 	});
 
 	app.logger.info('configured i18n module');
