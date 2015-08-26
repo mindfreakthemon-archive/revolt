@@ -16,4 +16,4 @@ export default function (url) {
 
 		res.redirect(returnTo);
 	};
-};
+}

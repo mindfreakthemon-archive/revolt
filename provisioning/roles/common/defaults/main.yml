@@ -2,3 +2,5 @@ hostname: "revolt.in.the.middle-of-nowhere.name"
 port: "8080"
 
 timezone: "Europe/Kiev"
+
+rabbitmq_rpm_url: "https://www.rabbitmq.com/releases/rabbitmq-server/v3.5.4/rabbitmq-server-3.5.4-1.noarch.rpm"

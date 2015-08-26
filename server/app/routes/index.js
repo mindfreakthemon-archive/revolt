@@ -6,4 +6,4 @@ export default function () {
 	app.use('/', main());
 
 	app.logger.info('initialized main middlewares');
-};
+}

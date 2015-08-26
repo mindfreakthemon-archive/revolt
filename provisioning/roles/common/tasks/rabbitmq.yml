@@ -1,0 +1,11 @@
+- name: add rabbitmq rpm key
+  rpm_key: key=https://www.rabbitmq.com/rabbitmq-signing-key-public.asc state=present
+
+- name: download rabbitmq rpm
+  get_url: url={{rabbitmq_rpm_url}} dest=/usr/local/src/rabbitmq-server.rpm
+
+- name: install rabbitmq rpm
+  yum: name=/usr/local/src/rabbitmq-server.rpm state=present
+
+- name: setup rabbitmq-server service
+  service: name=rabbitmq-server enabled=yes state=started

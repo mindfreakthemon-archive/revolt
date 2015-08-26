@@ -18,4 +18,4 @@ export default function () {
 			app.logger.info('updated mailer configuration');
 		});
 	});
-};
+}

@@ -6,4 +6,4 @@ export default function () {
 	app.use('/user', user());
 
 	app.logger.info('initialized user middlewares');
-};
+}

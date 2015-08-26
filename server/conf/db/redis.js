@@ -1,5 +1,5 @@
-var redis = require('redis'),
-	url = require('url');
+import redis from 'redis';
+import url from 'url';
 
 export default function (done) {
 	var app = this,
@@ -38,4 +38,4 @@ export default function (done) {
 	app.logger.info('created redis client');
 
 	app.db.redis = client;
-};
+}

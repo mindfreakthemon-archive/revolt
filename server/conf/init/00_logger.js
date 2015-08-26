@@ -10,4 +10,4 @@ export default function () {
 	winston.add(winston.transports.Console, {
 		colorize: true
 	});
-};
+}

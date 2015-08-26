@@ -1,4 +1,4 @@
-import Form from 'core/forms/form'
+import Form from 'core/forms/form';
 import User from 'core/models/user';
 
 import unique from 'core/forms/validators/unique';

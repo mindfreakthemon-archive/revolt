@@ -6,4 +6,4 @@ export default function () {
 	app.acl = new acl(new acl.mongodbBackend(app.db.mongo, 'acl_', true));
 
 	app.logger.info('initialized access control list');
-};
+}

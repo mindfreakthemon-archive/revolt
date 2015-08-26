@@ -20,4 +20,4 @@ export default function (app) {
 	iterate(path => app.phase(bootable.initializers(path + '/conf/pre-app', app)));
 	iterate(path => app.phase(bootable.routes(path + '/app/routes/index.js', app)));
 	iterate(path => app.phase(bootable.initializers(path + '/conf/post-app', app)));
-};
+}

@@ -9,6 +9,7 @@
 - include: nginx.yml
 - include: redis.yml
 - include: mongodb.yml
+- include: rabbitmq.yml
 - include: timezone.yml
 
 - name: fixing locale

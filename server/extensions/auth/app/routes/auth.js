@@ -3,7 +3,6 @@ import passport from 'passport';
 
 import inherit from 'core/helpers/express/inherit';
 import loggedTo from 'core/helpers/auth/loggedTo';
-import render from 'core/helpers/utils/render';
 
 import LoginForm from 'core/forms/login';
 
@@ -43,7 +42,11 @@ export default function () {
 			}),
 			loggedTo('/'))
 
-			.get('/login', render('auth/login'))
+			.get('/login', function (req, res) {
+				res.render('auth/login', {
+					login: new LoginForm(req, res)
+				});
+			})
 			.post('/login',
 			function (req, res, next) {
 				passport.authenticate('local', function (err, user) {
@@ -69,4 +72,4 @@ export default function () {
 	});
 
 	return router;
-};
+}

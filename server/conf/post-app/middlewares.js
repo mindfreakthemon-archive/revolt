@@ -21,6 +21,7 @@ export default function () {
 		});
 	});
 
+	/* jshint unused:false */
 	app.use(function (error, req, res, next) {
 		res.status(error.errorCode || 500);
 
@@ -31,4 +32,4 @@ export default function () {
 	});
 
 	app.logger.info('initialized post-app middlewares');
-};
+}

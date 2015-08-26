@@ -19,4 +19,4 @@ export default function () {
 	app.disable('x-powered-by');
 
 	app.logger.info('configured express variables');
-};
+}

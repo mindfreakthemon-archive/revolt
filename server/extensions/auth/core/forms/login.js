@@ -1,4 +1,4 @@
-import Form from 'core/forms/form'
+import Form from 'core/forms/form';
 
 export default class extends Form {
 	constructor(request, response) {

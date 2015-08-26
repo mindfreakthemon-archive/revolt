@@ -10,5 +10,4 @@ export default function () {
 	});
 
 	app.logger.info('configured i18n module');
-};
-
+}

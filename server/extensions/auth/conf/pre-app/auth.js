@@ -12,4 +12,5 @@ export default function () {
 	});
 
 	app.logger.info('initialized auth pre-app configuration');
-};
+}
+

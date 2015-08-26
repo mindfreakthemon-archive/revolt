@@ -17,4 +17,4 @@ export default function () {
 	} catch (e) {
 		app.logger.warn('couldn\'t load environment configuration:', e);
 	}
-};
+}

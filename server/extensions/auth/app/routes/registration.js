@@ -3,7 +3,6 @@ import express from 'express';
 import User from 'core/models/user';
 
 import inherit from 'core/helpers/express/inherit';
-import render from 'core/helpers/utils/render';
 import loggedOut from 'core/helpers/auth/loggedOut';
 
 import RegistrationForm from 'core/forms/registration';
@@ -48,4 +47,4 @@ export default function () {
 		});
 
 	return router;
-};
+}

@@ -22,4 +22,4 @@ export default function (req, res, type, code, message, url) {
 			});
 		}
 	});
-};
+}

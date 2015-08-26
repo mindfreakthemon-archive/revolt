@@ -17,10 +17,14 @@ export default class Form {
 		this.form.fields._csrf = Form.fields.string({
 			required: true,
 			widget: Form.widgets.hidden()
-		})
+		});
 	}
 
 	render(data) {
+		return this.bind(data).toHTML(this.renderer);
+	}
+
+	bind(data) {
 		var _data = {};
 
 		util._extend(_data, data || {});
@@ -29,11 +33,15 @@ export default class Form {
 
 		_data._csrf = this.request.csrfToken();
 
-		return this.form.bind(_data).toHTML(bootstrap);
+		return this.form.bind(_data);
+	}
+
+	validate(callback, data) {
+		this.bind(data).validate(callback);
 	}
 
 	handle(callbacks) {
-		this.form.handle(this.request, this.renderer);
+		this.form.handle(this.request, callbacks);
 	}
 
 	set data(value) {

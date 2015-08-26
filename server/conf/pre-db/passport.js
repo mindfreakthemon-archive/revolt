@@ -50,4 +50,4 @@ export default function () {
 			setup();
 			app.logger.info('installed %s passport strategy', key);
 		});
-};
+}

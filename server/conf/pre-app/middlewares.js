@@ -101,4 +101,4 @@ export default function () {
 	}));
 
 	app.logger.info('initialized pre-app middlewares');
-};
+}

@@ -1,4 +1,4 @@
-import Form from 'core/forms/login'
+import Form from 'core/forms/login';
 
 import bootstrap from 'core/forms/renderers/bootstrap.placeholders';
 

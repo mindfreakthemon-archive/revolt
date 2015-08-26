@@ -27,4 +27,4 @@ export default function (done) {
 	});
 
 	app.db.mongo = client;
-};
+}
