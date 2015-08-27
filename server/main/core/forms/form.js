@@ -4,9 +4,7 @@ import util from 'util';
 import bootstrap from 'core/forms/renderers/bootstrap';
 
 export default class Form {
-	constructor(fields, request, response) {
-		this.form = forms.create(fields);
-
+	constructor(request, response) {
 		this.request = request;
 		this.response = response;
 		this.renderer = bootstrap;
@@ -14,6 +12,7 @@ export default class Form {
 	}
 
 	initialize() {
+		this.form = forms.create(this.fields);
 		this.form.fields._csrf = Form.fields.string({
 			required: true,
 			widget: Form.widgets.hidden()
@@ -42,6 +41,10 @@ export default class Form {
 
 	handle(callbacks) {
 		this.form.handle(this.request, callbacks);
+	}
+
+	get fields() {
+		return {};
 	}
 
 	set data(value) {

@@ -1,3 +1,7 @@
 {
-	"google": "smugle"
+	"google": "smugle",
+	"locales": {
+		"ru": "Русский",
+		"en": "English"
+	}
 }

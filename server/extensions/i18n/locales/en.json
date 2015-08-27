@@ -1,3 +1,7 @@
 {
-	"google": "sux"
+	"google": "sux",
+	"locales": {
+		"ru": "Русский",
+		"en": "English"
+	}
 }

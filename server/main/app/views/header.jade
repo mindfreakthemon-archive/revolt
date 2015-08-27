@@ -16,10 +16,20 @@ nav.navbar.navbar-default
 						| Registration
 				li
 					a(href='#') Link
-				li
-					form(action='/i18n/select', method='POST')
-						!= resolveForm('core/forms/locale').render()
-						button Submit
+
+
+			form.navbar-form.navbar-right(action='/i18n/select', method='POST')
+				!= resolveForm('core/forms/form').render()
+				.btn-group
+					button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')= __('locales.' + request.getLocale())
+						| &nbsp;
+						span.caret
+					ul.dropdown-menu
+						each locale in app.conf.get('i18n.locales')
+							if locale !== request.getLocale()
+								li: a: button.btn.btn-default.btn-block(type='submit', name='locale', value=locale)= __('locales.' + locale)
+
+
 			if user
 				ul.nav.navbar-nav.navbar-right
 					li
@@ -30,15 +40,19 @@ nav.navbar.navbar-default
 							span.caret
 						ul.dropdown-menu
 							li
-								a(href='/user/logout') Logout
+								a(href='/totp') Totp settings
 							li
-								a(href='#') Another action
+								a(href='/user/remove') Remove yourself
 							li
 								a(href='#') Something else here
 							li.divider(role='separator')
 							li
 								a(href='/auth/logout') Logout
 			else
-				form.navbar-form.navbar-left(role='login', method='POST', action='/auth/login')
+				form.navbar-form.navbar-right(role='login', method='POST', action='/auth/login')
 					!= resolveForm('core/forms/login.header').render()
 					button.btn.btn-default(type='submit') Submit
+				ul.nav.navbar-nav.navbar-right
+					li: a(href='/auth/google')= __('google')
+					li: a(href='/auth/github') GitHub
+

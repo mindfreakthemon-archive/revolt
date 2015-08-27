@@ -1,8 +1,8 @@
 import Form from 'core/forms/form.js';
 
 export default class extends Form {
-	constructor(request, response) {
-		super({
+	get fields() {
+		return {
 			key: Form.fields.string({
 				required: true,
 				widget: Form.widgets.hidden()
@@ -14,6 +14,6 @@ export default class extends Form {
 			code: Form.fields.string({
 				required: true
 			})
-		}, request, response);
+		};
 	}
 }

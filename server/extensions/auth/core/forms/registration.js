@@ -4,8 +4,8 @@ import User from 'core/models/user';
 import unique from 'core/forms/validators/unique';
 
 export default class extends Form {
-	constructor(request, response) {
-		super({
+	get fields() {
+		return {
 			username: Form.fields.string({
 				required: true,
 				validators: [
@@ -26,6 +26,6 @@ export default class extends Form {
 					unique(User, 'email')
 				]
 			})
-		}, request, response);
+		};
 	}
 }
