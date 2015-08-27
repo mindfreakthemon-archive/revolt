@@ -5,6 +5,7 @@
 		"locales": ["en", "ru"],
 		"name": "locale",
 		"cookie": {
+			"maxAge": 172800000,
 			"httpOnly": false,
 			"secure": false,
 			"path": "/"

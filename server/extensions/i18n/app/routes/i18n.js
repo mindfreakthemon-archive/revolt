@@ -16,7 +16,7 @@ export default function () {
 
 				form.handle({
 					success: function (form) {
-						res.cookie(app.conf.get('i18n.name'), form.data.locale, app.conf.get('i18n.cookie'));
+						res.sendLocaleCookie(form.data.locale);
 					}
 				});
 

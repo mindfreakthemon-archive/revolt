@@ -14,7 +14,15 @@ export default function () {
 	app.use(function (req, res, next) {
 		var locale = req.baseUrl.slice(1);
 
+		res.sendLocaleCookie = function (locale) {
+			this.cookie(app.conf.get('i18n.name'), locale, app.conf.get('i18n.cookie'))
+		};
+
 		if (locales.indexOf(locale) !== -1) {
+			if (req.getLocale() !== locale) {
+				res.sendLocaleCookie(locale);
+			}
+
 			req.setLocale(locale);
 		}
 
