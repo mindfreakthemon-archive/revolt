@@ -4,9 +4,10 @@ export default function () {
 	var app = this;
 
 	i18n.configure({
-		locales: ['en', 'ru'],
+		locales: app.conf.get('i18n.locales'),
 		objectNotation: true,
-		directory: app.root + '/extensions/locales'
+		cookie: app.conf.get('i18n.name'),
+		directory: app.root + '/extensions/i18n/locales'
 	});
 
 	app.logger.info('configured i18n module');

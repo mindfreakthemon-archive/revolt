@@ -1,4 +1,4 @@
 README
 =========
 
-Boilerplate for node.js projects
+Highly extensible boilerplate for node.js projects

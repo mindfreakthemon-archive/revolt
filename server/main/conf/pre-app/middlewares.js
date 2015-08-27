@@ -11,6 +11,7 @@ import session from 'express-session';
 import cookieParser from 'cookie-parser';
 
 import respond from 'core/helpers/utils/respond';
+import resolveForm from 'core/helpers/forms/resolveForm';
 
 export default function () {
 	var app = this,
@@ -84,6 +85,8 @@ export default function () {
 		res.locals.request = req;
 		res.locals.response = res;
 		res.locals.app = app;
+
+		res.locals.resolveForm = resolveForm.bind(app, req, res);
 
 		next();
 	});

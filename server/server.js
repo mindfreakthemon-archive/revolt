@@ -6,6 +6,7 @@ var app = bootable(express());
 
 app.db = {};
 app.root = __dirname;
+app.main = app;
 
 setup(app);
 
@@ -14,7 +15,7 @@ app.boot(function (error) {
 		throw error;
 	}
 
-	app.listen(app.conf.get('port'), function () {
+	app.main.listen(app.conf.get('port'), function () {
 		app.logger.info('server started on port %d', app.conf.get('port'));
 	});
 });

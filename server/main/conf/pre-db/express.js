@@ -1,6 +1,6 @@
 export default function () {
 	var app = this,
-		basedir = app.root + '/app/views',
+		basedir = app.root + '/main/app/views',
 		views = [basedir];
 
 	// enable "extend /layout"

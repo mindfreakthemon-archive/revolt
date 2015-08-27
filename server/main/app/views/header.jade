@@ -16,6 +16,10 @@ nav.navbar.navbar-default
 						| Registration
 				li
 					a(href='#') Link
+				li
+					form(action='/i18n/select', method='POST')
+						!= resolveForm('core/forms/locale').render()
+						button Submit
 			if user
 				ul.nav.navbar-nav.navbar-right
 					li
@@ -36,5 +40,5 @@ nav.navbar.navbar-default
 								a(href='/auth/logout') Logout
 			else
 				form.navbar-form.navbar-left(role='login', method='POST', action='/auth/login')
-					!= login.render()
+					!= resolveForm('core/forms/login.header').render()
 					button.btn.btn-default(type='submit') Submit

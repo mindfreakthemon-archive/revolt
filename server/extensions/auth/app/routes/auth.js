@@ -43,9 +43,7 @@ export default function () {
 			loggedTo('/'))
 
 			.get('/login', function (req, res) {
-				res.render('auth/login', {
-					login: new LoginForm(req, res)
-				});
+				res.render('auth/login');
 			})
 			.post('/login',
 			function (req, res, next) {

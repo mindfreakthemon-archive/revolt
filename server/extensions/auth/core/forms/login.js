@@ -7,7 +7,7 @@ export default class extends Form {
 				required: true
 			}),
 			password: Form.fields.password({
-				required: Form.validators.required('You definitely want a password')
+				required: Form.validators.required()
 			})
 		}, request, response);
 	}

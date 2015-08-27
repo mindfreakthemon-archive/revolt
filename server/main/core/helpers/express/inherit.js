@@ -1,5 +1,8 @@
+import path from 'path';
+
 export default function (app) {
 	this.locals.basedir = app.locals.basedir;
+	this.conf = app.conf;
 
 	this.set('views', app.get('views'));
 	this.set('view engine', app.get('view engine'));
