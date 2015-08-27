@@ -4,7 +4,7 @@ import passport from 'passport';
 import inherit from 'core/helpers/express/inherit';
 import loggedTo from 'core/helpers/auth/loggedTo';
 
-import LoginForm from 'core/forms/login';
+import User from 'core/models/user';
 
 export default function () {
 	var router = express();
@@ -21,12 +21,24 @@ export default function () {
 					passport._strategies.google._relyingParty.realm = url;
 				}
 
+				if (passport._strategies.imgur) {
+					passport._strategies.imgur._callbackURL = url + router.mountpath + '/imgur/callback';
+					//passport._strategies.imgur._relyingParty.realm = url;
+				}
+
 				if (passport._strategies.github) {
 					passport._strategies.github._callbackURL = url + router.mountpath + '/github/callback';
 				}
 
 				next();
 			})
+
+			.get('/imgur', passport.authenticate('imgur'))
+			.get('/imgur/callback',
+			passport.authenticate('imgur', {
+				failureRedirect: router.mountpath + '/login'
+			}),
+			loggedTo('/'))
 
 			.get('/google', passport.authenticate('google'))
 			.get('/google/callback',
@@ -66,7 +78,18 @@ export default function () {
 				req.logout();
 				next();
 			},
-			loggedTo('/'));
+			loggedTo('/'))
+
+			.get('/remove',
+			function (req, res) {
+				var id = req.user.id;
+
+				req.logout();
+
+				User.findOneAndRemove(id, function () {
+					res.redirect('/');
+				});
+			});
 	});
 
 	return router;

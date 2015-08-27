@@ -14,18 +14,7 @@ export default function () {
 	router
 		.all('*', loggedIn('/auth/login'))
 
-		.get('/self', render('user/self'))
-
-		.get('/remove',
-		function (req, res) {
-			var id = req.user.id;
-
-			req.logout();
-
-			User.findOneAndRemove(id, function () {
-				res.redirect('/');
-			});
-		});
+		.get('/self', render('user/self'));
 
 	return router;
 }

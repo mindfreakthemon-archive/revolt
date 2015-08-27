@@ -42,7 +42,7 @@ nav.navbar.navbar-default
 							li
 								a(href='/totp') Totp settings
 							li
-								a(href='/user/remove') Remove yourself
+								a(href='/auth/remove') Remove yourself
 							li
 								a(href='#') Something else here
 							li.divider(role='separator')
@@ -53,6 +53,7 @@ nav.navbar.navbar-default
 					!= resolveForm('core/forms/login.header').render()
 					button.btn.btn-default(type='submit') Submit
 				ul.nav.navbar-nav.navbar-right
-					li: a(href='/auth/google')= __('google')
+					li: a(href='/auth/google') Google
+					li: a(href='/auth/imgur') Imgur
 					li: a(href='/auth/github') GitHub
 

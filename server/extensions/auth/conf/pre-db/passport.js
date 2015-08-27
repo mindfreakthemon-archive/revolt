@@ -10,6 +10,7 @@ passport.deserializeUser(function (id, done) {
 });
 
 import * as GithubStrategy from 'core/passport/strategies/github';
+import * as ImgurStrategy from 'core/passport/strategies/imgur';
 import * as GoogleStrategy from 'core/passport/strategies/google';
 import * as LocalStrategy from 'core/passport/strategies/local';
 import * as TotpStrategy from 'core/passport/strategies/totp';
@@ -21,7 +22,7 @@ export default function () {
 	 * Here we include all of available strategies and
 	 * iterate through them configuring each of them
 	 */
-	[GithubStrategy, GoogleStrategy, LocalStrategy, TotpStrategy]
+	[GithubStrategy, ImgurStrategy, GoogleStrategy, LocalStrategy, TotpStrategy]
 		.forEach(function (auth) {
 			var key = auth.KEY;
 

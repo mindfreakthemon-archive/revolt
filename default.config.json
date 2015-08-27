@@ -31,6 +31,10 @@
 		"github": {
 			"client_id": "undefined",
 			"client_secret": "undefined"
+		},
+		"imgur": {
+			"client_id": "undefined",
+			"client_secret": "undefined"
 		}
 	},
 	"mongo": "mongodb://localhost/mongodb",

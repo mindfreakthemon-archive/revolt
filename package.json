@@ -35,6 +35,7 @@
     "notp": "^2.0.3",
     "passport": "~0.2.2",
     "passport-github": "^0.1.5",
+    "passport-imgur": "^0.0.3",
     "passport-google": "~0.3.0",
     "passport-local": "^1.0.0",
     "passport-totp": "0.0.1",
