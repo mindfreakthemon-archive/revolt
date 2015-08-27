@@ -29,8 +29,8 @@ export default function () {
 		next();
 	});
 
-	override.use(locales.map(locale => '/:locale(' + locale + ')'), app);
-	override.use('/', app);
+	override.use(locales.map(locale => '/:locale(' + locale + ')'), app.main);
+	override.use('/', app.main);
 
 	app.main = override;
 

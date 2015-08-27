@@ -126,6 +126,8 @@ schema.statics.auth = function (req, provider, id, data, done) {
 				// or current user wants to attach a provider to his account
 				user = req.user || new User();
 
+				user.set(data);
+
 				user.accounts.push({
 					provider: provider,
 					identifier: id

@@ -11,12 +11,10 @@ nav.navbar.navbar-default
 
 		#header-menu.collapse.navbar-collapse
 			ul.nav.navbar-nav
-				li.active
-					a(href='/registration')
-						| Registration
-				li
-					a(href='#') Link
-
+				if !user
+					li
+						a(href='/registration')
+							| Registration
 
 			form.navbar-form.navbar-right(action='/i18n/select', method='POST')
 				!= resolveForm('core/forms/form').render()
@@ -32,19 +30,18 @@ nav.navbar.navbar-default
 
 			if user
 				ul.nav.navbar-nav.navbar-right
-					li
-						a(href='#') Link
 					li.dropdown
 						a.dropdown-toggle(href='#', data-toggle='dropdown', role='button')
-							= user.get('local.username')
+							= user.get('name')
 							span.caret
 						ul.dropdown-menu
 							li
+								a(href='/user/self') Dashboard
+							li
 								a(href='/totp') Totp settings
+							li.divider(role='separator')
 							li
 								a(href='/auth/remove') Remove yourself
-							li
-								a(href='#') Something else here
 							li.divider(role='separator')
 							li
 								a(href='/auth/logout') Logout
