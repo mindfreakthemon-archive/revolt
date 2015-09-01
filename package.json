@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node server/server.js",
-    "test": "gulp test",
-    "postinstall": "gulp assets"
+    "test": "gulp test"
   },
   "license": "MIT",
   "babel": {
