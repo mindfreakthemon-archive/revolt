@@ -4,7 +4,7 @@ var gulp = require('gulp');
 
 require('require-dir')('./tasks');
 
-gulp.task('assets', ['tpl', 'jade', 'stylus', 'js']);
+gulp.task('assets', ['bower', 'tpl', 'jade', 'stylus', 'js']);
 
 gulp.task('watch', ['assets'], function () {
 	gulp.watch(['./app/tpl/**/*.jade'], ['tpl']);

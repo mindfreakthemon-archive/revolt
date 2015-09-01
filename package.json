@@ -5,7 +5,7 @@
   "scripts": {
     "start": "./node_modules/.bin/babel-node server/server.js",
     "test": "./node_modules/.bin/gulp test",
-    "postinstall": "./node_modules/.bin/bower install && ./node_modules/.bin/gulp assets"
+    "postinstall": "./node_modules/.bin/gulp assets"
   },
   "license": "MIT",
   "babel": {
@@ -21,7 +21,6 @@
     "bcrypt": "^0.8.3",
     "body-parser": "^1.13.2",
     "bootable": "~0.2.4",
-    "bower": "^1.5.2",
     "connect-flash": "^0.1.1",
     "connect-redis": "^2.4.0",
     "convict": "^0.8.0",
@@ -56,6 +55,7 @@
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^2.3.1",
     "gulp-babel": "^5.1.0",
+    "gulp-bower": "0.0.10",
     "gulp-changed": "^1.2.1",
     "gulp-concat": "^2.6.0",
     "gulp-connect": "^2.2.0",
