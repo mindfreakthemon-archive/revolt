@@ -1,3 +1,5 @@
+require('babel-core/register');
+
 var gulp = require('gulp');
 
 require('require-dir')('./tasks');
@@ -12,5 +14,4 @@ gulp.task('watch', ['assets'], function () {
 	gulp.watch(['./app/**/*'], ['manifest']);
 });
 
-gulp.task('test', ['lint']);
 gulp.task('default', ['connect', 'watch']);

@@ -3,6 +3,7 @@
   with_items:
     - gulp
     - bower
+    - babel
 
 - name: install npm modules in project root
   npm: path=/vagrant state=present

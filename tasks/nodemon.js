@@ -5,9 +5,7 @@ gulp.task('nodemon', function () {
 	nodemon({
 		watch: 'server/**/*.js',
 		script: 'server/server.js',
-		env: {
-			NODE_DEBUG: 'request'
-		}
+		tasks: ['lint']
 	}).on('restart', function () {
 		console.log('restarted!');
 	});
