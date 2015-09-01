@@ -1,3 +1,4 @@
 {
-	"directory": "client/public/lib"
+	"directory": "client/public/lib",
+	"interactive": false
 }
