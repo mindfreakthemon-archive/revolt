@@ -43,5 +43,15 @@
 		"default": null,
 		"format": "*",
 		"env": "PASSPORT_IMGUR_CLIENT_SECRET"
+	},
+	"passport.google.client_id": {
+		"default": null,
+		"format": "*",
+		"env": "PASSPORT_GOOGLE_CLIENT_ID"
+	},
+	"passport.google.client_secret": {
+		"default": null,
+		"format": "*",
+		"env": "PASSPORT_GOOGLE_CLIENT_SECRET"
 	}
 }

@@ -1,8 +1,8 @@
 import User from 'parts/auth/lib/models/user';
 export const KEY = 'google';
-export * from 'passport-google';
+export * from 'passport-google-oauth2';
 
-export function verify(req, identifier, profile, done) {
+export function verify(req, accessToken, refreshToken, profile, done) {
 	var data = {
 		name: profile.displayName
 	};
@@ -14,13 +14,15 @@ export function verify(req, identifier, profile, done) {
 		}
 	});
 
-	User.auth(req, 'google', identifier, data, done);
+	User.auth(req, 'google', profile.id, data, done);
 }
 
-export function configure() {
+export function configure(conf) {
 	return {
-		returnURL: 'http://localhost/auth/google/return',
-		realm: 'http://localhost',
-		passReqToCallback: true
+		clientID: conf.client_id,
+		clientSecret: conf.client_secret,
+		callbackURL: 'http://localhost/auth/google/return',
+		passReqToCallback: true,
+		scope: ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/plus.profile.emails.read']
 	};
 }
