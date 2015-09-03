@@ -12,8 +12,7 @@ export default function (router) {
 			var url = req.protocol + '://' + req.get('host');
 
 			if (passport._strategies.google) {
-				passport._strategies.google._relyingParty.returnUrl = url + router.mountpath + '/google/callback';
-				passport._strategies.google._relyingParty.realm = url;
+				passport._strategies.google._callbackURL = url + router.mountpath + '/google/callback';
 			}
 
 			if (passport._strategies.imgur) {
