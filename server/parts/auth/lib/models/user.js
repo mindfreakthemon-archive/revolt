@@ -5,6 +5,12 @@ import shortid from 'shortid';
 const SALT_WORK_FACTOR = 10;
 
 let schema = new mongoose.Schema({
+	_id: {
+		type: String,
+		unique: true,
+		'default': shortid.generate
+	},
+
 	role: String,
 	created: {
 		type: Date,

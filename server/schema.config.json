@@ -23,5 +23,25 @@
 		"default": null,
 		"format": "*",
 		"env": "COOKIE_SECRET"
+	},
+	"passport.github.client_id": {
+		"default": null,
+		"format": "*",
+		"env": "PASSPORT_GITHUB_CLIENT_ID"
+	},
+	"passport.github.client_secret": {
+		"default": null,
+		"format": "*",
+		"env": "PASSPORT_GITHUB_CLIENT_SECRET"
+	},
+	"passport.imgur.client_id": {
+		"default": null,
+		"format": "*",
+		"env": "PASSPORT_IMGUR_CLIENT_ID"
+	},
+	"passport.imgur.client_secret": {
+		"default": null,
+		"format": "*",
+		"env": "PASSPORT_IMGUR_CLIENT_SECRET"
 	}
 }
