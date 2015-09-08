@@ -29,7 +29,7 @@ export default function (done) {
 		app.logger.error('redis connection error:', error.toString());
 	});
 
-	client.on('ready', function () {
+	client.once('ready', function () {
 		app.logger.info('redis client is ready');
 
 		done();
