@@ -1,0 +1,22 @@
+- name: download node js source tarball
+  get_url: url=http://nodejs.org/dist/v{{nodejs_version}}/node-v{{nodejs_version}}-linux-x64.tar.gz dest=/usr/local/src/node-v{{nodejs_version}}-linux-x64.tar.gz
+
+- name: unarchive node js source
+  unarchive: src=/usr/local/src/node-v{{nodejs_version}}-linux-x64.tar.gz copy=no dest=/opt/ creates=/opt/node-v{{nodejs_version}}-linux-x64/bin/node
+
+- name: set correct node binary
+  alternatives: name=node link=/usr/bin/node path=/opt/node-v{{nodejs_version}}-linux-x64/bin/node
+
+- name: set correct npm binary
+  alternatives: name=npm link=/usr/bin/npm path=/opt/node-v{{nodejs_version}}-linux-x64/bin/npm
+
+- name: install npm modules
+  npm: name={{item}} global=yes state=present
+  with_items:
+    - gulp
+    - bower
+    - babel
+
+- name: install npm modules in project root
+  npm: path=/vagrant state=present
+  ignore_errors: true

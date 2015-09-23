@@ -5,8 +5,6 @@
     - gcc-c++
     - nginx
     - redis
-    - nodejs
-    - npm
     - libselinux-python
     - mongo-10gen
     - mongo-10gen-server

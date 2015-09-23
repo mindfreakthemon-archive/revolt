@@ -5,7 +5,7 @@
 
 - include: repo.yml
 - include: yum.yml
-- include: npm.yml
+- include: nodejs.yml
 - include: nginx.yml
 - include: redis.yml
 - include: mongodb.yml
