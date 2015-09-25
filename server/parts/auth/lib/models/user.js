@@ -138,9 +138,14 @@ schema.statics.auth = function (req, provider, id, data, done) {
 					provider: provider,
 					identifier: id
 				});
+
+				user.save(done);
+				return;
 			}
 
-			user.save(done);
+			// req.user is logged out
+			// and user is found
+			done(null, user);
 		});
 };
 

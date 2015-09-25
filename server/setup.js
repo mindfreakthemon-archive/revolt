@@ -21,6 +21,7 @@ export default function (app) {
 	paths.forEach(path => app.phase(bootable.initializers(path + '/conf/pre-db', app)));
 	paths.forEach(path => app.phase(bootable.initializers(path + '/conf/db', app)));
 	paths.forEach(path => app.phase(bootable.initializers(path + '/conf/post-db', app)));
+	paths.forEach(path => app.phase(bootable.initializers(path + '/services', app)));
 	paths.forEach(path => app.phase(bootable.initializers(path + '/conf/pre-app', app)));
 
 	paths.forEach(path => app.phase(function () {
