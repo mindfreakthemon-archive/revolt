@@ -1,4 +1,4 @@
-nav.navbar.navbar-default
+nav#primary-navbar.navbar.navbar-default
 	.container-fluid
 
 		.navbar-header
@@ -31,26 +31,34 @@ nav.navbar.navbar-default
 			if user
 				ul.nav.navbar-nav.navbar-right
 					li.dropdown
-						a.dropdown-toggle(href='#', data-toggle='dropdown', role='button')
+						a.dropdown-toggle(data-toggle='dropdown', href='#')
 							= user.get('name')
-							span.caret
-						ul.dropdown-menu
+							i.fa.fa-user.fa-fw
+							i.fa.fa-caret-down
+						ul.dropdown-menu.dropdown-user
 							li
-								a(href='/user/self') Dashboard
+								a(href='/user/self')
+									i.fa.fa-user.fa-fw
+									|  User Profile
 							li
-								a(href='/totp') Totp settings
-							li.divider(role='separator')
+								a(href='/totp')
+									i.fa.fa-gear.fa-fw
+									|  Totp Settings
+							li.divider
 							li
-								a(href='/auth/remove') Remove yourself
-							li.divider(role='separator')
-							li
-								a(href='/auth/logout') Logout
+								a(href='/auth/logout')
+									i.fa.fa-sign-out.fa-fw
+									|  Logout
 			else
-				form.navbar-form.navbar-right(role='login', method='POST', action='/auth/login')
-					!= resolveForm('auth', 'login.header').render()
-					button.btn.btn-default(type='submit') Submit
 				ul.nav.navbar-nav.navbar-right
-					li: a(href='/auth/google') Google
+					li
+						div.navbar-form: a.btn.btn-block.btn-social.btn-github(href='/auth/github')
+							i.fa.fa-github
+							|  Sign in with GitHub
+					li
+						div.navbar-form: a.btn.btn-block.btn-social.btn-google-plus(href='/auth/google')
+							i.fa.fa-google-plus
+							|  Sign in with Google
 					li: a(href='/auth/imgur') Imgur
-					li: a(href='/auth/github') GitHub
+					li: a(href='/auth/login') Sign in
 

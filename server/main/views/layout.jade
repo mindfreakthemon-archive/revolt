@@ -3,19 +3,36 @@ html
 	head
 		block meta
 			meta(charset='utf-8')
-			title= title || 'Hello World!'
 			meta(name='viewport', content='initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,user-scalable=no')
+		block title
+			title= title || 'Hello World!'
+		block links
 			link(rel='stylesheet', href='/public/lib/bootstrap/dist/css/bootstrap.min.css')
 			link(rel='stylesheet', href='/public/lib/bootstrap/dist/css/bootstrap-theme.min.css')
-			script(src='/public/lib/jquery/dist/jquery.min.js')
-			script(src='/public/lib/bootstrap/dist/js/bootstrap.min.js')
+			link(rel='stylesheet', href='/public/lib/bootstrap-social/bootstrap-social.css')
+			link(rel='stylesheet', href='/public/lib/font-awesome/css/font-awesome.min.css')
+			link(rel='stylesheet', href='/public/lib/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css')
+			link(rel='stylesheet', href='/public/lib/metisMenu/dist/metisMenu.min.css')
+			link(rel='stylesheet', href='/public/lib/morrisjs/morris.css')
+		link(rel='stylesheet', href='/public/css/style.css')
+
 	body
 		block header
 			include header
 		.container-fluid
-			#div
+			for messages, severity in flash()
+				for message in messages
+					.alert.alert-dismissible(class='alert-' + severity)
+						button.close(type='button'): span &times;
+						= message
 
-				= JSON.stringify(flash())
 			block content
+		block scripts
+			script(src='/public/lib/jquery/dist/jquery.min.js')
+			script(src='/public/lib/bootstrap/dist/js/bootstrap.min.js')
+			script(src='/public/lib/metisMenu/dist/metisMenu.min.js')
+			script(src='/public/lib/morrisjs/morris.min.js')
+			script.
+				$('#side-menu').metisMenu();
 
 
