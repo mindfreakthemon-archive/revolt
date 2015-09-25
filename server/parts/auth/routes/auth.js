@@ -1,6 +1,7 @@
 import passport from 'passport';
 
 import loggedTo from 'parts/auth/lib/helpers/auth/loggedTo';
+import emit from 'parts/core/lib/helpers/utils/emit';
 
 import User from 'parts/auth/lib/models/user';
 
@@ -31,6 +32,7 @@ export default function (router) {
 		passport.authenticate('imgur', {
 			failureRedirect: router.mountpath + '/login'
 		}),
+		emit('auth:login:imgur'),
 		loggedTo('/'))
 
 		.get('/google', passport.authenticate('google'))
@@ -38,6 +40,7 @@ export default function (router) {
 		passport.authenticate('google', {
 			failureRedirect: router.mountpath + '/login'
 		}),
+		emit('auth:login:google'),
 		loggedTo('/'))
 
 		.get('/github', passport.authenticate('github'))
@@ -45,6 +48,7 @@ export default function (router) {
 		passport.authenticate('github', {
 			failureRedirect: router.mountpath + '/login'
 		}),
+		emit('auth:login:github'),
 		loggedTo('/'))
 
 		.get('/login', function (req, res) {
@@ -64,6 +68,7 @@ export default function (router) {
 				req.login(user, next);
 			})(req, res, next);
 		},
+		emit('auth:login:local'),
 		loggedTo('/'))
 
 		.get('/logout',
@@ -71,6 +76,7 @@ export default function (router) {
 			req.logout();
 			next();
 		},
+		emit('auth:logout'),
 		loggedTo('/'))
 
 		.get('/remove',

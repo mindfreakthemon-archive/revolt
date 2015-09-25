@@ -29,6 +29,8 @@ export default function (router) {
 					user.email = form.data.email;
 
 					user.save(function () {
+						req.trigger('auth:registration:local', user);
+
 						res.redirect('/');
 					});
 				},
