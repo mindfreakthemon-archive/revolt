@@ -2,7 +2,7 @@ var gulp = require('gulp'),
 	manifest = require('gulp-manifest');
 
 gulp.task('manifest', function(){
-	gulp.src(['public/**/*'])
+	gulp.src(['client/public/**/*'])
 		.pipe(manifest({
 			hash: true,
 			preferOnline: true,
@@ -10,5 +10,5 @@ gulp.task('manifest', function(){
 			filename: 'app.manifest',
 			exclude: 'app.manifest'
 		}))
-		.pipe(gulp.dest('public'));
+		.pipe(gulp.dest('client/public'));
 });

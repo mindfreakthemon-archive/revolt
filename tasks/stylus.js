@@ -5,7 +5,7 @@ var gulp = require('gulp'),
 	changed = require('gulp-changed');
 
 gulp.task('stylus', function () {
-	gulp.src('./client/app/stylus/**/*.styl')
+	gulp.src('./client/app/styl/**/*.styl')
 		.pipe(changed('./client/public/css', { extension: '.css' }))
 		.pipe(stylus())
 		.pipe(concat('style.css'))
