@@ -17,10 +17,18 @@ export default function (app) {
 
 	var paths = [app.root + '/main'].concat(app.parts.map(extension => (app.root + '/parts/' + extension)));
 
-	paths.forEach(path => app.phase(bootable.initializers(path + '/conf/init')));
+	/**
+	 * Really low level initialization.
+	 * Should not be used in any part rather than core.
+	 */
+	paths.forEach(path => app.phase(bootable.initializers(path + '/pre-init')));
+
+	paths.forEach(path => app.phase(bootable.initializers(path + '/init')));
+
 	paths.forEach(path => app.phase(bootable.initializers(path + '/conf/pre-db', app)));
-	paths.forEach(path => app.phase(bootable.initializers(path + '/conf/db', app)));
+	paths.forEach(path => app.phase(bootable.initializers(path + '/db', app)));
 	paths.forEach(path => app.phase(bootable.initializers(path + '/conf/post-db', app)));
+
 	paths.forEach(path => app.phase(bootable.initializers(path + '/services', app)));
 	paths.forEach(path => app.phase(bootable.initializers(path + '/conf/pre-app', app)));
 

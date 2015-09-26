@@ -12,8 +12,6 @@ import cookieParser from 'cookie-parser';
 
 import respond from 'parts/core/lib/helpers/utils/respond';
 
-import resolveForm from 'parts/forms/lib/helpers/forms/resolveForm';
-
 export default function () {
 	var app = this,
 		store = null;
@@ -86,8 +84,6 @@ export default function () {
 		res.locals.request = req;
 		res.locals.response = res;
 		res.locals.app = app;
-
-		res.locals.resolveForm = resolveForm.bind(app, req, res);
 
 		next();
 	});
