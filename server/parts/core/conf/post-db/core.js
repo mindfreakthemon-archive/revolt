@@ -29,9 +29,9 @@ export default function () {
 
 	app.use(bodyParser.json());
 
-	app.use(cookieParser(app.conf.get('cookie.secret')));
+	app.use(cookieParser(app.conf.get('core.cookie.secret')));
 
-	switch (app.conf.get('session.store')) {
+	switch (app.conf.get('core.session.store')) {
 		case 'redis':
 			if (!app.db.redis) {
 				app.logger.warn('session is configured to be stored in redis, but no redis instance is defined');
@@ -42,7 +42,7 @@ export default function () {
 
 			store = new (connectRedis(session))({
 				client: app.db.redis,
-				prefix: app.conf.get('session.prefix')
+				prefix: app.conf.get('core.session.prefix')
 			});
 
 			break;
@@ -53,13 +53,13 @@ export default function () {
 	}
 
 	app.use(session({
-		secret: app.conf.get('session.secret'),
+		secret: app.conf.get('core.session.secret'),
 		store: store,
 		cookie: {
-			path: app.conf.get('session.path'),
-			httpOnly: app.conf.get('session.httpOnly'),
-			secure: app.conf.get('session.secure'),
-			maxAge: app.conf.get('session.maxAge')
+			path: app.conf.get('core.session.path'),
+			httpOnly: app.conf.get('core.session.httpOnly'),
+			secure: app.conf.get('core.session.secure'),
+			maxAge: app.conf.get('core.session.maxAge')
 		},
 		resave: false,
 		saveUninitialized: false

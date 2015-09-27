@@ -1,55 +1,55 @@
 {
-	"port": {
+	"core.port": {
 		"default": null,
 		"format": "port",
 		"env": "PORT"
 	},
 	"redis": {
-		"default": null,
+		"default": "redis://localhost:6379",
 		"format": "url",
 		"env": "REDISTOGO_URL"
 	},
 	"mongo": {
-		"default": null,
+		"default": "mongodb://localhost/mongodb",
 		"format": "url",
 		"env": "MONGOHQ_URL"
 	},
-	"session.secret": {
+	"core.session.secret": {
 		"default": null,
 		"format": "*",
 		"env": "SESSION_SECRET"
 	},
-	"cookie.secret": {
+	"core.cookie.secret": {
 		"default": null,
 		"format": "*",
 		"env": "COOKIE_SECRET"
 	},
-	"passport.github.client_id": {
+	"auth.passport.github.client_id": {
 		"default": null,
 		"format": "*",
 		"env": "PASSPORT_GITHUB_CLIENT_ID"
 	},
-	"passport.github.client_secret": {
+	"auth.passport.github.client_secret": {
 		"default": null,
 		"format": "*",
 		"env": "PASSPORT_GITHUB_CLIENT_SECRET"
 	},
-	"passport.imgur.client_id": {
+	"auth.passport.imgur.client_id": {
 		"default": null,
 		"format": "*",
 		"env": "PASSPORT_IMGUR_CLIENT_ID"
 	},
-	"passport.imgur.client_secret": {
+	"auth.passport.imgur.client_secret": {
 		"default": null,
 		"format": "*",
 		"env": "PASSPORT_IMGUR_CLIENT_SECRET"
 	},
-	"passport.google.client_id": {
+	"auth.passport.google.client_id": {
 		"default": null,
 		"format": "*",
 		"env": "PASSPORT_GOOGLE_CLIENT_ID"
 	},
-	"passport.google.client_secret": {
+	"auth.passport.google.client_secret": {
 		"default": null,
 		"format": "*",
 		"env": "PASSPORT_GOOGLE_CLIENT_SECRET"

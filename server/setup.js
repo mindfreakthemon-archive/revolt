@@ -9,6 +9,7 @@ import requireDirectory from 'require-directory';
 addPath(__dirname);
 
 import inherit from './parts/core/lib/helpers/express/inherit';
+import importer from './parts/core/lib/helpers/express/importer';
 
 const DEFAULT_MOUNT_PATH = '/';
 
@@ -21,17 +22,39 @@ export default function (app) {
 	 * Really low level initialization.
 	 * Should not be used in any part rather than core.
 	 */
-	paths.forEach(path => app.phase(bootable.initializers(path + '/pre-init')));
+	paths.forEach(path => app.phase(bootable.initializers(path + '/pre-init', app)));
 
-	paths.forEach(path => app.phase(bootable.initializers(path + '/init')));
+	/**
+	 * Loads default.config.json files from each part.
+	 */
+	paths.forEach(path => app.phase(importer(path + '/default.config.json', app)));
 
+	/**
+	 * Defaults initialization step.
+	 */
+	paths.forEach(path => app.phase(bootable.initializers(path + '/init', app)));
+
+	/**
+	 * Loading config.json file for this app.
+	 */
+	app.phase(importer(app.root + '/config.json', app));
+
+	/**
+	 * DB initialization step.
+	 */
 	paths.forEach(path => app.phase(bootable.initializers(path + '/conf/pre-db', app)));
 	paths.forEach(path => app.phase(bootable.initializers(path + '/db', app)));
 	paths.forEach(path => app.phase(bootable.initializers(path + '/conf/post-db', app)));
 
+	/**
+	 * Time to hook up to the any events available.
+	 */
 	paths.forEach(path => app.phase(bootable.initializers(path + '/services', app)));
-	paths.forEach(path => app.phase(bootable.initializers(path + '/conf/pre-app', app)));
 
+	/**
+	 * Application routes initialization step
+	 */
+	paths.forEach(path => app.phase(bootable.initializers(path + '/conf/pre-app', app)));
 	paths.forEach(path => app.phase(function () {
 		if (!fs.existsSync(path + '/routes')) {
 			return;
@@ -48,6 +71,5 @@ export default function (app) {
 			}
 		});
 	}));
-
 	paths.forEach(path => app.phase(bootable.initializers(path + '/conf/post-app', app)));
 }

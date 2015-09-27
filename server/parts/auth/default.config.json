@@ -1,0 +1,18 @@
+{
+	"auth": {
+		"passport": {
+			"github": {
+				"client_id": null,
+				"client_secret": null
+			},
+			"imgur": {
+				"client_id": null,
+				"client_secret": null
+			},
+			"google": {
+				"client_id": null,
+				"client_secret": null
+			}
+		}
+	}
+}

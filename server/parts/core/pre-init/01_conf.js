@@ -1,20 +1,36 @@
 import convict from 'convict';
 import path from 'path';
 
+function pruneEmptyKeys(obj) {
+	for (let key of Object.keys(obj)) {
+		if (obj[key] === null || obj[key] === undefined) {
+			delete obj[key];
+		} else if (typeof obj[key] === 'object') {
+			pruneEmptyKeys(obj[key]);
+		}
+	}
+}
+
 export default function () {
 	var app = this,
 		schema = require(path.resolve(app.root, 'schema.config.json')),
 		conf = app.conf = app.locals.conf = convict(schema);
 
-	conf.loadFile(path.resolve(app.root, 'default.config.json'));
+	conf.loadDefaultsFile = function (path) {
+		var _config = this.getProperties();
 
-	app.logger.info('loaded default configuration');
+		pruneEmptyKeys(_config);
 
-	try {
-		conf.loadFile(path.resolve(app.root, 'config.json'));
+		this.loadFile(path);
+		this.load(_config);
+	};
 
-		app.logger.info('environment configuration was loaded');
-	} catch (e) {
-		app.logger.warn('couldn\'t load environment configuration:', e);
-	}
+	conf.loadDefaults = function (data) {
+		var _config = this.getProperties();
+
+		pruneEmptyKeys(_config);
+
+		this.load(data);
+		this.load(_config);
+	};
 }

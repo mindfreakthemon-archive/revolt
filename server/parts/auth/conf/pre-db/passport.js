@@ -31,8 +31,8 @@ export default function () {
 					conf = {};
 
 				if (auth.configure) {
-					if (app.conf.has('passport.' + key)) {
-						conf = app.conf.get('passport.' + key);
+					if (app.conf.has('auth.passport.' + key)) {
+						conf = app.conf.get('auth.passport.' + key);
 					}
 
 					options = auth.configure(conf);
