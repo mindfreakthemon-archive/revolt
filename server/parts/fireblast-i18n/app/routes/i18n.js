@@ -1,4 +1,4 @@
-import LocaleForm from 'parts/i18n/lib/forms/locale';
+import LocaleForm from 'fireblast-i18n/lib/forms/locale';
 
 export const MOUNT_PATH = '/i18n';
 
