@@ -7,12 +7,14 @@ export function verify(req, accessToken, refreshToken, profile, done) {
 		name: profile.displayName
 	};
 
-	profile.emails.some(function (v) {
-		if (v.value) {
-			data.email = v.value;
-			return true;
-		}
-	});
+	if (profile.emails) {
+		profile.emails.some(function (v) {
+			if (v.value) {
+				data.email = v.value;
+				return true;
+			}
+		});
+	}
 
 	User.auth(req, 'github', profile.id, data, done);
 }

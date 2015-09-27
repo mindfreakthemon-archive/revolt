@@ -17,7 +17,7 @@ nav#primary-navbar.navbar.navbar-default
 							| Registration
 
 			form.navbar-form.navbar-right(action='/i18n/select', method='POST')
-				!= resolveForm('forms', 'form').render()
+				!= resolveForm('fireblast-forms', 'form').render()
 				.btn-group
 					button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')= __('locales.' + request.getLocale())
 						| &nbsp;
