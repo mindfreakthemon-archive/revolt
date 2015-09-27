@@ -2,44 +2,11 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import shortid from 'shortid';
 
+import UserSchema from 'fireblast-auth/lib/schemas/user';
+
 const SALT_WORK_FACTOR = 10;
 
-let schema = new mongoose.Schema({
-	_id: {
-		type: String,
-		unique: true,
-		'default': shortid.generate
-	},
-
-	role: String,
-	created: {
-		type: Date,
-		default: Date.now
-	},
-	name: String,
-	email: String,
-
-	accounts: [
-		new mongoose.Schema({
-			identifier: String,
-			provider: String
-		})
-	],
-	totp: {
-		enabled: Boolean,
-		key: String,
-		period: String
-	},
-	local: {
-		username: {
-			type: String,
-			index: { unique: true }
-		},
-		password: String
-	}
-});
-
-schema.pre('save', function (next) {
+UserSchema.pre('save', function (next) {
 	var user = this;
 
 	if (!user.isModified('local.password')) {
@@ -65,7 +32,7 @@ schema.pre('save', function (next) {
 	});
 });
 
-schema.pre('save', function (next) {
+UserSchema.pre('save', function (next) {
 	var user = this;
 
 	if (user.local.username) {
@@ -76,7 +43,7 @@ schema.pre('save', function (next) {
 	next();
 });
 
-schema.statics.login = function (username, password, callback) {
+UserSchema.statics.login = function (username, password, callback) {
 	var User = this.model('User');
 
 	User.findOne({
@@ -97,7 +64,7 @@ schema.statics.login = function (username, password, callback) {
 		});
 };
 
-schema.methods.validatePassword = function (pasword, callback) {
+UserSchema.methods.validatePassword = function (pasword, callback) {
 	bcrypt.compare(pasword, this.local.password, function (error, isMatch) {
 		if (error) {
 			return callback(error);
@@ -107,7 +74,7 @@ schema.methods.validatePassword = function (pasword, callback) {
 	});
 };
 
-schema.statics.auth = function (req, provider, id, data, done) {
+UserSchema.statics.auth = function (req, provider, id, data, done) {
 	var User = this.model('User');
 
 	User.findOne({
@@ -149,4 +116,4 @@ schema.statics.auth = function (req, provider, id, data, done) {
 		});
 };
 
-export default mongoose.model('User', schema);
+export default mongoose.model('User', UserSchema);
