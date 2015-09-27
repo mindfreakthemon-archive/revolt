@@ -1,4 +1,4 @@
-import resolveForm from 'parts/forms/lib/helpers/forms/resolveForm';
+import resolveForm from 'fireblast-forms/lib/helpers/forms/resolveForm';
 
 export default function () {
 	var app = this;

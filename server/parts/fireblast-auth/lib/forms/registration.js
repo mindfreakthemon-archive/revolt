@@ -1,7 +1,7 @@
-import Form from 'parts/forms/lib/forms/form';
+import Form from 'fireblast-forms/lib/forms/form';
 import User from 'fireblast-auth/lib/models/user';
 
-import unique from 'parts/forms/lib/forms/validators/unique';
+import unique from 'fireblast-forms/lib/forms/validators/unique';
 
 export default class extends Form {
 	get fields() {

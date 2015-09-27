@@ -1,7 +1,7 @@
 import forms from 'forms';
 import util from 'util';
 
-import bootstrap from 'parts/forms/lib/forms/renderers/bootstrap';
+import bootstrap from 'fireblast-forms/lib/forms/renderers/bootstrap';
 
 export default class Form {
 	constructor(request, response) {

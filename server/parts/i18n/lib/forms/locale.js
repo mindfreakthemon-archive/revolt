@@ -1,4 +1,4 @@
-import Form from 'parts/forms/lib/forms/form';
+import Form from 'fireblast-forms/lib/forms/form';
 
 export default class extends Form {
 	constructor(request, response) {
