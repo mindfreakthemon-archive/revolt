@@ -8,7 +8,7 @@ export default function () {
 		locales: app.conf.get('i18n.locales'),
 		objectNotation: true,
 		cookie: app.conf.get('i18n.name'),
-		directory: path.join(__dirname, '../../locales')
+		directory: path.join(app.root, 'locales')
 	});
 
 	app.logger.info('configured i18n module');

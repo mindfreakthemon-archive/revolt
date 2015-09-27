@@ -16,13 +16,13 @@ const DEFAULT_MOUNT_PATH = '/';
 export default function (app) {
 	app.parts = require('fs').readdirSync(app.root + '/parts');
 
-	var paths = [app.root + '/main'].concat(app.parts.map(extension => (app.root + '/parts/' + extension)));
+	var paths = [app.root + '/main'].concat(app.parts.map(part => (app.root + '/parts/' + part)));
 
 	/**
 	 * Really low level initialization.
 	 * Should not be used in any part rather than core.
 	 */
-	paths.forEach(path => app.phase(bootable.initializers(path + '/pre-init', app)));
+	paths.forEach(path => app.phase(bootable.initializers(path + '/app/pre-init', app)));
 
 	/**
 	 * Loads default.config.json files from each part.
@@ -32,7 +32,7 @@ export default function (app) {
 	/**
 	 * Defaults initialization step.
 	 */
-	paths.forEach(path => app.phase(bootable.initializers(path + '/init', app)));
+	paths.forEach(path => app.phase(bootable.initializers(path + '/app/init', app)));
 
 	/**
 	 * Loading config.json file for this app.
@@ -42,25 +42,25 @@ export default function (app) {
 	/**
 	 * DB initialization step.
 	 */
-	paths.forEach(path => app.phase(bootable.initializers(path + '/conf/pre-db', app)));
-	paths.forEach(path => app.phase(bootable.initializers(path + '/db', app)));
-	paths.forEach(path => app.phase(bootable.initializers(path + '/conf/post-db', app)));
+	paths.forEach(path => app.phase(bootable.initializers(path + '/app/pre-db', app)));
+	paths.forEach(path => app.phase(bootable.initializers(path + '/app/db', app)));
+	paths.forEach(path => app.phase(bootable.initializers(path + '/app/post-db', app)));
 
 	/**
 	 * Time to hook up to the any events available.
 	 */
-	paths.forEach(path => app.phase(bootable.initializers(path + '/services', app)));
+	paths.forEach(path => app.phase(bootable.initializers(path + '/app/services', app)));
 
 	/**
 	 * Application routes initialization step
 	 */
-	paths.forEach(path => app.phase(bootable.initializers(path + '/conf/pre-app', app)));
+	paths.forEach(path => app.phase(bootable.initializers(path + '/app/pre-routes', app)));
 	paths.forEach(path => app.phase(function () {
-		if (!fs.existsSync(path + '/routes')) {
+		if (!fs.existsSync(path + '/app/routes')) {
 			return;
 		}
 
-		requireDirectory(module, path + '/routes', {
+		requireDirectory(module, path + '/app/routes', {
 			visit: function (route) {
 				var router = express();
 
@@ -71,5 +71,5 @@ export default function (app) {
 			}
 		});
 	}));
-	paths.forEach(path => app.phase(bootable.initializers(path + '/conf/post-app', app)));
+	paths.forEach(path => app.phase(bootable.initializers(path + '/app/post-routes', app)));
 }
