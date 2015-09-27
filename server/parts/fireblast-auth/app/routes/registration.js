@@ -1,7 +1,7 @@
-import loggedOut from 'parts/auth/lib/helpers/auth/loggedOut';
+import loggedOut from 'fireblast-auth/lib/helpers/auth/loggedOut';
 
-import User from 'parts/auth/lib/models/user';
-import RegistrationForm from 'parts/auth/lib/forms/registration';
+import User from 'fireblast-auth/lib/models/user';
+import RegistrationForm from 'fireblast-auth/lib/forms/registration';
 
 export const MOUNT_PATH = '/registration';
 

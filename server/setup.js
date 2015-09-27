@@ -7,6 +7,7 @@ import { addPath } from 'app-module-path';
 import requireDirectory from 'require-directory';
 
 addPath(__dirname);
+addPath(__dirname + '/parts');
 
 import inherit from './parts/core/lib/helpers/express/inherit';
 import importer from './parts/core/lib/helpers/express/importer';

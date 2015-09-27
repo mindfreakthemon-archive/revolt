@@ -1,4 +1,4 @@
-import User from 'parts/auth/lib/models/user';
+import User from 'fireblast-auth/lib/models/user';
 export const KEY = 'local';
 export * from 'passport-local';
 

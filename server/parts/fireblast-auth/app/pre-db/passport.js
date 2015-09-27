@@ -1,11 +1,11 @@
 import passport from 'passport';
-import User from 'parts/auth/lib/models/user';
+import User from 'fireblast-auth/lib/models/user';
 
-import * as GithubStrategy from 'parts/auth/lib/passport/strategies/github';
-import * as ImgurStrategy from 'parts/auth/lib/passport/strategies/imgur';
-import * as GoogleStrategy from 'parts/auth/lib/passport/strategies/google';
-import * as LocalStrategy from 'parts/auth/lib/passport/strategies/local';
-import * as TotpStrategy from 'parts/auth/lib/passport/strategies/totp';
+import * as GithubStrategy from 'fireblast-auth/lib/passport/strategies/github';
+import * as ImgurStrategy from 'fireblast-auth/lib/passport/strategies/imgur';
+import * as GoogleStrategy from 'fireblast-auth/lib/passport/strategies/google';
+import * as LocalStrategy from 'fireblast-auth/lib/passport/strategies/local';
+import * as TotpStrategy from 'fireblast-auth/lib/passport/strategies/totp';
 
 passport.serializeUser(function (user, done) {
 	done(null, user.id);

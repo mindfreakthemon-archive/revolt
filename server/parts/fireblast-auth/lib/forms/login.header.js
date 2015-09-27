@@ -1,4 +1,4 @@
-import Form from 'parts/auth/lib/forms/login';
+import Form from 'fireblast-auth/lib/forms/login';
 
 import bootstrap from 'parts/forms/lib/forms/renderers/bootstrap.placeholders';
 

@@ -1,5 +1,5 @@
 import Form from 'parts/forms/lib/forms/form';
-import User from 'parts/auth/lib/models/user';
+import User from 'fireblast-auth/lib/models/user';
 
 import unique from 'parts/forms/lib/forms/validators/unique';
 

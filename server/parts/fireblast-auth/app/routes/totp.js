@@ -1,11 +1,11 @@
 import passport from 'passport';
 
 import render from 'parts/core/lib/helpers/utils/render';
-import loggedTo from 'parts/auth/lib/helpers/auth/loggedTo';
-import totpConfigured from 'parts/auth/lib/helpers/totp/totpConfigured';
-import * as otp from 'parts/auth/lib/helpers/totp/otp';
+import loggedTo from 'fireblast-auth/lib/helpers/auth/loggedTo';
+import totpConfigured from 'fireblast-auth/lib/helpers/totp/totpConfigured';
+import * as otp from 'fireblast-auth/lib/helpers/totp/otp';
 
-import TOTPForm from 'parts/auth/lib/forms/totp';
+import TOTPForm from 'fireblast-auth/lib/forms/totp';
 
 export const MOUNT_PATH = '/totp';
 

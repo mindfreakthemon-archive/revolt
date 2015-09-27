@@ -1,9 +1,9 @@
 import passport from 'passport';
 
-import loggedTo from 'parts/auth/lib/helpers/auth/loggedTo';
+import loggedTo from 'fireblast-auth/lib/helpers/auth/loggedTo';
 import emit from 'parts/core/lib/helpers/utils/emit';
 
-import User from 'parts/auth/lib/models/user';
+import User from 'fireblast-auth/lib/models/user';
 
 export const MOUNT_PATH = '/auth';
 

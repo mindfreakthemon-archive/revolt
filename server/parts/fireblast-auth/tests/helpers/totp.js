@@ -2,9 +2,9 @@
 
 import sinon from 'sinon';
 
-import * as otp from 'parts/auth/lib/helpers/totp/otp';
-import totpConfigured from 'parts/auth/lib/helpers/totp/totpConfigured';
-import loggedInTotp from 'parts/auth/lib/helpers/totp/loggedInTotp';
+import * as otp from 'fireblast-auth/lib/helpers/totp/otp';
+import totpConfigured from 'fireblast-auth/lib/helpers/totp/totpConfigured';
+import loggedInTotp from 'fireblast-auth/lib/helpers/totp/loggedInTotp';
 
 describe('Auth Part', () => {
 	describe('Helpers', () => {

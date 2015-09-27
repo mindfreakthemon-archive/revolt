@@ -1,4 +1,4 @@
-import loggedIn from 'parts/auth/lib/helpers/auth/loggedIn';
+import loggedIn from 'fireblast-auth/lib/helpers/auth/loggedIn';
 
 /**
  * Pass next() if user is logged in
