@@ -9,8 +9,8 @@ import requireDirectory from 'require-directory';
 addPath(__dirname);
 addPath(__dirname + '/parts');
 
-import inherit from './parts/core/lib/helpers/express/inherit';
-import importer from './parts/core/lib/helpers/express/importer';
+import inherit from './parts/fireblast-core/lib/helpers/express/inherit';
+import importer from './parts/fireblast-core/lib/helpers/express/importer';
 
 const DEFAULT_MOUNT_PATH = '/';
 

@@ -1,6 +1,6 @@
 import passport from 'passport';
 
-import render from 'parts/core/lib/helpers/utils/render';
+import render from 'fireblast-core/lib/helpers/utils/render';
 import loggedTo from 'fireblast-auth/lib/helpers/auth/loggedTo';
 import totpConfigured from 'fireblast-auth/lib/helpers/totp/totpConfigured';
 import * as otp from 'fireblast-auth/lib/helpers/totp/otp';

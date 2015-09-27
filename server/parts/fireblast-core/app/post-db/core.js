@@ -10,7 +10,7 @@ import connectRedis from 'connect-redis';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
 
-import respond from 'parts/core/lib/helpers/utils/respond';
+import respond from 'fireblast-core/lib/helpers/utils/respond';
 
 export default function () {
 	var app = this,

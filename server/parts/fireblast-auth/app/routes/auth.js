@@ -1,7 +1,7 @@
 import passport from 'passport';
 
 import loggedTo from 'fireblast-auth/lib/helpers/auth/loggedTo';
-import emit from 'parts/core/lib/helpers/utils/emit';
+import emit from 'fireblast-core/lib/helpers/utils/emit';
 
 import User from 'fireblast-auth/lib/models/user';
 
