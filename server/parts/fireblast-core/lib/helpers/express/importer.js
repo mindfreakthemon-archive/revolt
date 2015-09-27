@@ -1,4 +1,3 @@
-import path from 'path';
 import fs from 'fs';
 
 export default function (file, app) {
@@ -6,5 +5,5 @@ export default function (file, app) {
 		if (fs.existsSync(file)) {
 			app.conf.loadFile(file);
 		}
-	}
+	};
 }
