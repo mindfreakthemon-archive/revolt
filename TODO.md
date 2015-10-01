@@ -1,1 +1,2 @@
-- add http://i18next.com/node/pages/doc_init.html
+- remove current implementation of forms and do something with form generation from scheme
+- implement ACL

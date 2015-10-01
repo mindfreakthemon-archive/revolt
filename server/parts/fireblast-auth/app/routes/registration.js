@@ -1,4 +1,5 @@
 import loggedOut from 'fireblast-auth/lib/helpers/auth/loggedOut';
+import render from 'fireblast-core/lib/helpers/utils/render';
 
 import User from 'fireblast-auth/lib/models/user';
 import RegistrationForm from 'fireblast-auth/lib/forms/registration';
@@ -9,13 +10,7 @@ export default function (router) {
 	router
 		.all('*', loggedOut('/'))
 
-		.get('/', function (req, res) {
-			var form = new RegistrationForm(req, res);
-
-			res.render('auth/registration', {
-				registration: form
-			});
-		})
+		.get('/', render('auth/registration'))
 		.post('/',
 		function (req, res) {
 			var form = new RegistrationForm(req, res);

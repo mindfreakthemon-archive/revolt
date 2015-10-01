@@ -9,6 +9,7 @@ chai.use(sinonChai);
 
 gulp.task('test', function () {
 	app.addPath('./server');
+	app.addPath('./server/parts');
 
 	return gulp.src('server/**/tests/**/*.js', { read: false })
 		.pipe(mocha());

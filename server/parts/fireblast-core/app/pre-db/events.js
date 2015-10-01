@@ -48,5 +48,5 @@ export default function () {
 		next();
 	});
 
-	app.logger.info('configured express variables');
+	app.logger.debug('configured events for the app');
 }

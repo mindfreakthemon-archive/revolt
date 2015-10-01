@@ -3,5 +3,5 @@ extends /layout
 block content
 	h1 Login
 	form(method='POST', action='/registration')
-		!= registration.render()
+		!= resolveForm('fireblast-auth', 'registration').render()
 		button YES

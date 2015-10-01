@@ -17,5 +17,5 @@ export default function () {
 	app.enable('case sensitive routing');
 	app.disable('x-powered-by');
 
-	app.logger.info('configured express variables');
+	app.logger.debug('configured express variables');
 }

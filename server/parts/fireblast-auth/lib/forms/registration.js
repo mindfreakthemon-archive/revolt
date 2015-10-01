@@ -1,5 +1,4 @@
 import Form from 'fireblast-forms/lib/forms/form';
-import User from 'fireblast-auth/lib/models/user';
 
 import unique from 'fireblast-forms/lib/forms/validators/unique';
 
@@ -9,7 +8,7 @@ export default class extends Form {
 			username: Form.fields.string({
 				required: true,
 				validators: [
-					unique(User, 'local.username')
+					unique('User', 'local.username')
 				]
 			}),
 			password: Form.fields.password({
@@ -23,7 +22,7 @@ export default class extends Form {
 			}),
 			email: Form.fields.email({
 				validators: [
-					unique(User, 'email')
+					unique('User', 'email')
 				]
 			})
 		};

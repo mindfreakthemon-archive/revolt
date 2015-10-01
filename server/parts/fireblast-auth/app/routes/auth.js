@@ -2,6 +2,7 @@ import passport from 'passport';
 
 import loggedTo from 'fireblast-auth/lib/helpers/auth/loggedTo';
 import emit from 'fireblast-core/lib/helpers/utils/emit';
+import render from 'fireblast-core/lib/helpers/utils/render';
 
 import User from 'fireblast-auth/lib/models/user';
 
@@ -51,9 +52,7 @@ export default function (router) {
 		emit('auth:login:github'),
 		loggedTo('/'))
 
-		.get('/login', function (req, res) {
-			res.render('auth/login');
-		})
+		.get('/login', render('auth/login'))
 		.post('/login',
 		function (req, res, next) {
 			passport.authenticate('local', function (err, user) {

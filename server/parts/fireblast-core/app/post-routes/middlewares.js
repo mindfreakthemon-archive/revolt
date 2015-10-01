@@ -13,23 +13,12 @@ export default function () {
 		]
 	}));
 
-	app.use(function (req, res) {
-		res.status(404);
-
-		res.render('error', {
-			code: 404
-		});
-	});
-
 	/* jshint unused:false */
 	app.use(function (error, req, res, next) {
-		res.status(error.errorCode || 500);
+		res.status(error.httpCode || error.errorCode || 500);
 
 		res.render('error', {
-			code: error.errorCode,
-			error: error.msg
+			error: error
 		});
 	});
-
-	app.logger.info('initialized post-app middlewares');
 }

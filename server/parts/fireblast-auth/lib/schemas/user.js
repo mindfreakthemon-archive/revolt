@@ -8,7 +8,6 @@ export default new mongoose.Schema({
 		'default': shortid.generate
 	},
 
-	role: String,
 	created: {
 		type: Date,
 		default: Date.now

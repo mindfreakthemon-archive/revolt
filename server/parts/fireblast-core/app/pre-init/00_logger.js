@@ -8,6 +8,9 @@ export default function () {
 	winston.remove(winston.transports.Console);
 
 	winston.add(winston.transports.Console, {
-		colorize: true
+		colorize: true,
+		level: 'debug'
 	});
+
+	app.logger.debug('initialized logged');
 }

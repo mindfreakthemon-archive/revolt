@@ -3,9 +3,7 @@ var gulp = require('gulp'),
 
 gulp.task('nodemon', function () {
 	nodemon({
-		watch: 'server/**/*.js',
-		script: 'server/server.js',
-		tasks: ['lint']
+		script: 'server/server.js'
 	}).on('restart', function () {
 		console.log('restarted!');
 	});

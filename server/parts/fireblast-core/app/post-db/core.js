@@ -1,6 +1,5 @@
 import express from 'express';
 import helmet from 'helmet';
-import csrf from 'csurf';
 import flash from 'connect-flash';
 import passport from 'passport';
 import bodyParser from 'body-parser';
@@ -88,8 +87,6 @@ export default function () {
 		next();
 	});
 
-	app.use(csrf());
-
 	app.use(logger.logger({
 		transports: [
 			new winston.transports.Console({
@@ -98,6 +95,4 @@ export default function () {
 			})
 		]
 	}));
-
-	app.logger.info('initialized pre-db middlewares');
 }
