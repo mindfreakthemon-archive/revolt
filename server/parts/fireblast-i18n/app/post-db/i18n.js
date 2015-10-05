@@ -34,5 +34,5 @@ export default function () {
 
 	app.main = override;
 
-	app.logger.info('initialized i18n pre-app middlewares');
+	app.logger.debug('initialized i18n post-db middlewares');
 }

@@ -11,6 +11,6 @@ export default function () {
 		next();
 	});
 
-	app.logger.info('initialized auth pre-app configuration');
+	app.logger.debug('initialized auth pre-routes configuration');
 }
 

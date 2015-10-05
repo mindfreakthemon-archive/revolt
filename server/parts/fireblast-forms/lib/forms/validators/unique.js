@@ -1,4 +1,4 @@
-import mogoose from 'mongoose';
+import mongoose from 'mongoose';
 
 export default function (modelName, path, message) {
 	var model = mongoose.model(modelName);

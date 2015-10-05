@@ -5,11 +5,11 @@ export default function () {
 		options = app.conf.get('email.mailer');
 
 	if (!options) {
-		app.logger.info('mailer is not configured');
+		app.logger.warn('mailer is not configured');
 		return;
 	}
 
 	mailer.extend(app, options);
 
-	app.logger.info('installed mailer');
+	app.logger.debug('installed mailer');
 }

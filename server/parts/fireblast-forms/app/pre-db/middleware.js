@@ -9,5 +9,5 @@ export default function () {
 		next();
 	});
 
-	app.logger.info('initialized forms pre-app middlewares');
+	app.logger.debug('initialized forms pre-app middlewares');
 }

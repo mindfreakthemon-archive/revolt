@@ -27,7 +27,7 @@ export default function () {
 		});
 	});
 
-	app.logger.info('registered email registration service');
+	app.logger.debug('registered email registration service');
 }
 
 

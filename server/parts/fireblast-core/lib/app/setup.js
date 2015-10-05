@@ -3,18 +3,16 @@ import fs from 'fs';
 import express from 'express';
 
 import bootable from 'bootable';
-import { addPath } from 'app-module-path';
 import requireDirectory from 'require-directory';
 
-addPath(__dirname);
-addPath(__dirname + '/parts');
-
-import inherit from './parts/fireblast-core/lib/helpers/express/inherit';
-import importer from './parts/fireblast-core/lib/helpers/express/importer';
+import inherit from 'fireblast-core/lib/helpers/express/inherit';
+import importer from 'fireblast-core/lib/helpers/express/importer';
 
 const DEFAULT_MOUNT_PATH = '/';
 
-export default function (app) {
+export default function () {
+	var app = this;
+
 	app.parts = require('fs').readdirSync(app.root + '/parts');
 
 	var paths = [app.root + '/main'].concat(app.parts.map(part => (app.root + '/parts/' + part)));
@@ -64,6 +62,9 @@ export default function (app) {
 		requireDirectory(module, path + '/app/routes', {
 			visit: function (route) {
 				var router = express();
+
+				app.logger.debug('loading %s module: %s', path, route.MOUNT_PATH);
+
 
 				router.on('mount', inherit);
 				router.on('mount', route.default.bind(app, router));

@@ -10,9 +10,9 @@ export default function (router) {
 	router
 		.get('/', () => {})
 
-		.all('/create', allowed('media:item', 'create'))
-		.get('/create', render('media/create'))
-		.post('/create', (req, res) => {
+		.all('/new', allowed('media:item', 'create'))
+		.get('/new', render('media/create'))
+		.post('/new', (req, res) => {
 			var form = new MediaAddItemForm(req, res);
 
 			form.handle({
@@ -27,6 +27,7 @@ export default function (router) {
 					res.redirect('/');
 				},
 				other: function () {
+					console.dir(arguments);
 					res.render('media/create');
 				}
 			});

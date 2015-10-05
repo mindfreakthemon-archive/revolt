@@ -13,7 +13,7 @@ export default (resource, permission) => {
 
 		app.logger.debug('checking permissions for %s to %s in %s', user.id, permission, resource);
 
-		app.acl.isAllowed(resource, user.id, permission, (error, allowed) => {
+		app.acl.isAllowed(user.id, resource, permission, (error, allowed) => {
 			if (error) {
 				app.logger.warn('error checking permissions for %s to %s in %s: ', user.id, permission, resource, error);
 

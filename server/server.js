@@ -1,23 +1,11 @@
-import bootable from 'bootable';
-import express from 'express';
-import setup from './setup';
+import { addPath } from 'app-module-path';
 
-var app = bootable(express());
+addPath(__dirname);
+addPath(__dirname + '/parts');
 
-app.db = {};
+var app = require('fireblast-core/lib/entity/app');
+
 app.root = __dirname;
-app.main = app;
 
-setup(app);
-
-app.boot(function (error) {
-	if (error) {
-		throw error;
-	}
-
-	app.logger.info('starting server on port %d', app.conf.get('core.port'));
-
-	app.main.listen(app.conf.get('core.port'), function () {
-		app.logger.info('server started on port %d', app.conf.get('core.port'));
-	});
-});
+app.setup();
+app.start();

@@ -21,7 +21,7 @@ export default function (done) {
 
 	if (params.pathname && params.pathname.length > 1) {
 		client.select(params.pathname.slice(1), function () {
-			app.logger.info('redis database was selected');
+			app.logger.debug('redis database was selected');
 		});
 	}
 
@@ -35,7 +35,7 @@ export default function (done) {
 		done();
 	});
 
-	app.logger.info('created redis client');
+	app.logger.debug('created redis client');
 
 	app.db.redis = client;
 }

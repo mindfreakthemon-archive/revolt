@@ -11,5 +11,5 @@ export default function () {
 		directory: path.join(app.root, 'locales')
 	});
 
-	app.logger.info('configured i18n module');
+	app.logger.debug('configured i18n module');
 }

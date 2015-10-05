@@ -36,10 +36,10 @@ export default function () {
 				passport.unuse(key);
 				setup();
 
-				app.logger.info('removed %s passport strategy', key);
+				app.logger.debug('removed %s passport strategy', key);
 			});
 
 			setup();
-			app.logger.info('installed %s passport strategy', key);
+			app.logger.debug('installed %s passport strategy', key);
 		});
 }
