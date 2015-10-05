@@ -3,17 +3,17 @@ import fs from 'fs';
 import express from 'express';
 
 import bootable from 'bootable';
-import requireDirectory from 'require-directory';
 
 import inherit from 'fireblast-core/lib/helpers/express/inherit';
-import importer from 'fireblast-core/lib/helpers/express/importer';
+import importer from 'fireblast-core/lib/helpers/setup/importer';
+import walker from 'fireblast-core/lib/helpers/setup/walker';
 
 const DEFAULT_MOUNT_PATH = '/';
 
 export default function () {
 	var app = this;
 
-	app.parts = require('fs').readdirSync(app.root + '/parts');
+	app.parts = fs.readdirSync(app.root + '/parts');
 
 	var paths = [app.root + '/main'].concat(app.parts.map(part => (app.root + '/parts/' + part)));
 
@@ -54,24 +54,15 @@ export default function () {
 	 * Application routes initialization step
 	 */
 	paths.forEach(path => app.phase(bootable.initializers(path + '/app/pre-routes', app)));
-	paths.forEach(path => app.phase(function () {
-		if (!fs.existsSync(path + '/app/routes')) {
-			return;
-		}
+	paths.forEach(path => app.phase(walker(path + '/app/routes', (route) => {
+		var router = express();
 
-		requireDirectory(module, path + '/app/routes', {
-			visit: function (route) {
-				var router = express();
+		app.logger.debug('loading %s module: %s', path, route.MOUNT_PATH);
 
-				app.logger.debug('loading %s module: %s', path, route.MOUNT_PATH);
+		router.on('mount', inherit);
+		router.on('mount', route.default.bind(app, router));
 
-
-				router.on('mount', inherit);
-				router.on('mount', route.default.bind(app, router));
-
-				app.use(route.MOUNT_PATH || DEFAULT_MOUNT_PATH, router);
-			}
-		});
-	}));
+		app.use(route.MOUNT_PATH || DEFAULT_MOUNT_PATH, router);
+	})));
 	paths.forEach(path => app.phase(bootable.initializers(path + '/app/post-routes', app)));
 }
