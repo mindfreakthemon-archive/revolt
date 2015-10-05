@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+/* jshint unused:false */
 import extend from 'mongoose-schema-extend';
 
 export default function () {

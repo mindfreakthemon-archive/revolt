@@ -6,7 +6,7 @@ import DeniedException from 'fireblast-core/lib/exceptions/denied';
  * @param permission
  * @returns {Function}
  */
-export default (resource, permission) => {
+export default function (resource, permission) {
 	return (request, response, next) => {
 		var app = response.locals.app,
 			user = request.user || { id: 'guest' };
