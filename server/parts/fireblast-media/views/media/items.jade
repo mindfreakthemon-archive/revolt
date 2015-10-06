@@ -1,0 +1,16 @@
+extends /layout
+
+block content
+	.row
+		a.btn(href='/media/create') Create
+	.row
+		.col-md-6.col-md-offset-3
+			h1= 'SS ' + pageCount
+			h2= itemCount
+			each item in items
+				.panel.panel-default
+					.panel-heading
+						h3.panel-title: a(href=request.app.path() + '/' + item.id)= item.title
+							if user.can('media:item', 'delete')
+								.pull-right
+									a(href=request.app.path() + '/' + item.id + '/delete') Delete

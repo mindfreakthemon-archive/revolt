@@ -1,6 +1,6 @@
 import Form from 'fireblast-forms/lib/forms/form';
 
-import unique from 'fireblast-forms/lib/forms/validators/unique';
+import unique from 'fireblast-auth/lib/forms/validators/unique';
 
 export default class extends Form {
 	get fields() {

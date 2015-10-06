@@ -1,3 +1,4 @@
 {
-	"media:item": ["create", "read", "update", "delete"]
+	"media:item": ["create", "read", "update", "delete"],
+	"media:items": ["list"]
 }

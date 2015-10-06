@@ -2,11 +2,11 @@ import BaseException from 'fireblast-core/lib/exceptions/base';
 
 export default class extends BaseException {
 	get errorCode() {
-		return 1;
+		return 2;
 	}
 
 	get httpCode() {
-		return 403;
+		return 404;
 	}
 
 	constructor(resource, permission) {
@@ -17,6 +17,6 @@ export default class extends BaseException {
 	}
 
 	get msg() {
-		return 'access denied';
+		return 'not found';
 	}
 }

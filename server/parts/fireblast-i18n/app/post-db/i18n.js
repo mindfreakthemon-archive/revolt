@@ -32,6 +32,10 @@ export default function () {
 	override.use(locales.map(locale => '/:locale(' + locale + ')'), app.main);
 	override.use('/', app.main);
 
+	// pretend it didn't happen
+	app.parent = null;
+	app.mountpath = null;
+
 	app.main = override;
 
 	app.logger.debug('initialized i18n post-db middlewares');

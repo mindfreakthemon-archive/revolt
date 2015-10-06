@@ -28,7 +28,7 @@ nav#primary-navbar.navbar.navbar-default
 								li: a: button.btn.btn-default.btn-block(type='submit', name='locale', value=locale)= __('locales.' + locale)
 
 
-			if user
+			if user.isAuthenticated()
 				ul.nav.navbar-nav.navbar-right
 					li.dropdown
 						a.dropdown-toggle(data-toggle='dropdown', href='#')

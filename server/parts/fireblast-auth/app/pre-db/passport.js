@@ -1,10 +1,11 @@
 import passport from 'passport';
 
-import * as GithubStrategy from 'fireblast-auth/lib/passport/strategies/github';
-import * as ImgurStrategy from 'fireblast-auth/lib/passport/strategies/imgur';
-import * as GoogleStrategy from 'fireblast-auth/lib/passport/strategies/google';
-import * as LocalStrategy from 'fireblast-auth/lib/passport/strategies/local';
-import * as TotpStrategy from 'fireblast-auth/lib/passport/strategies/totp';
+import * as GithubStrategy from 'fireblast-auth/lib/passport/github';
+import * as ImgurStrategy from 'fireblast-auth/lib/passport/imgur';
+import * as GoogleStrategy from 'fireblast-auth/lib/passport/google';
+import * as LocalStrategy from 'fireblast-auth/lib/passport/local';
+import * as TotpStrategy from 'fireblast-auth/lib/passport/totp';
+import * as DummyStrategy from 'fireblast-auth/lib/passport/dummy';
 
 export default function () {
 	var app = this;
@@ -13,7 +14,7 @@ export default function () {
 	 * Here we include all of available strategies and
 	 * iterate through them configuring each of them
 	 */
-	[GithubStrategy, ImgurStrategy, GoogleStrategy, LocalStrategy, TotpStrategy]
+	[GithubStrategy, ImgurStrategy, GoogleStrategy, LocalStrategy, TotpStrategy, DummyStrategy]
 		.forEach(function (auth) {
 			var key = auth.KEY;
 

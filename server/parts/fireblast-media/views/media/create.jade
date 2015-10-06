@@ -4,9 +4,9 @@ block content
 		.col-md-4.col-md-offset-4
 			.login-panel.panel.panel-default
 				.panel-heading
-					h3.panel-title New Media Item
+					h3.panel-title New Media Item #{request.app.path()}
 				.panel-body
-					form(method='POST', action='/media/new')
+					form(method='POST', action='/media/create')
 						fieldset
-							!= resolveForm('fireblast-media', 'add.item').render()
+							!= (form || resolveForm('fireblast-media', 'add.item')).render()
 							button.btn.btn-lg.btn-success.btn-block Do

@@ -1,8 +1,15 @@
 /* jshint unused:false */
+import mongoose from 'mongoose';
 import extend from 'mongoose-schema-extend';
+import paginate from 'mongoose-paginate';
+import bluebird from 'bluebird';
 
 export default function () {
 	var app = this;
 
-	app.logger.info('loaded mongoose-schema-extend for enabling extension of the schemes');
+	mongoose.Promise = bluebird;
+
+	mongoose.plugin(paginate);
+
+	app.logger.info('loaded mongoose extension');
 }
