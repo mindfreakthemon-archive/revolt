@@ -4,6 +4,6 @@ export const MOUNT_PATH = '/admin';
 
 export default function (router) {
 	router
-		.get('/', render('admin/index'))
+		.get('/', render('admin/index'));
 }
 

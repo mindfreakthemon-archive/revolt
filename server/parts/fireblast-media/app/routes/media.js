@@ -62,14 +62,14 @@ export default function (router) {
 			});
 		})
 
-		.all('/:id/update', allowed('media:item', 'update'))
-
-		.get('/:id/update', (req, res, next) => {
-
-		})
-		.post('/:id/update', (req, res, next) => {
-
-		})
+		//.all('/:id/update', allowed('media:item', 'update'))
+		//
+		//.get('/:id/update', (req, res, next) => {
+		//
+		//})
+		//.post('/:id/update', (req, res, next) => {
+		//
+		//})
 
 
 		.get('/:id/delete', allowed('media:item', 'delete'), (req, res, next) => {
