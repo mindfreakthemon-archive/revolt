@@ -5,8 +5,6 @@ block content
 		a.btn(href='/media/create') Create
 	.row
 		.col-md-6.col-md-offset-3
-			h1= 'SS ' + pageCount
-			h2= itemCount
 			each item in items
 				.panel.panel-default
 					.panel-heading
@@ -14,3 +12,17 @@ block content
 							if user.can('media:item', 'delete')
 								.pull-right
 									a(href=request.app.path() + '/' + item.id + '/delete') Delete
+
+			if paginate.hasPreviousPages || paginate.hasNextPages(pageCount)
+				.navigation.well-sm#pagination
+					ul.pager
+						if paginate.hasPreviousPages
+							li.previous
+								a(href=paginate.href(true)).prev
+									i.fa.fa-arrow-circle-left
+									|  Previous
+						if paginate.hasNextPages(pageCount)
+							li.next
+								a(href=paginate.href()).next
+									| Next&nbsp;
+									i.fa.fa-arrow-circle-right

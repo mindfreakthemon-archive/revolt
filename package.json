@@ -30,6 +30,7 @@
     "del": "^2.0.2",
     "express": "^4.13.3",
     "express-mailer": "^0.3.0",
+    "express-paginate": "0.0.8",
     "express-session": "^1.11.3",
     "express-winston": "^0.4.1",
     "fellowship": "^1.0.0",

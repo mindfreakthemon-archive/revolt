@@ -1,3 +1,5 @@
+import paginate from 'express-paginate';
+
 import render from 'fireblast-core/lib/helpers/utils/render';
 import allowed from 'fireblast-acl/lib/helpers/acl/allowed';
 
@@ -8,22 +10,30 @@ export const MOUNT_PATH = '/media';
 
 export default function (router) {
 	router
-		.get(['/', '/page/:page'], allowed('media:items', 'list'), (req, res, next) => {
-			MediaItem
-				.paginate({}, {
-					page: req.params.page || 1,
-					limit: 1,
-					sortBy: {
-						created: -1
-					}
-				})
-				.spread((items, pageCount, itemCount) => {
-					res.render('media/items', {
-						items, pageCount, itemCount
-					});
-				})
-				.catch(next);
-		})
+		.get('/',
+
+			paginate.middleware(),
+			allowed('media:items', 'list'),
+
+			(req, res, next) => {
+				var page = req.query.page || 1,
+					limit = req.query.limit || 2;
+
+				MediaItem
+					.paginate({}, {
+						page,
+						limit,
+						sortBy: {
+							created: -1
+						}
+					})
+					.spread((items, pageCount, itemCount) => {
+						res.render('media/items', {
+							page, limit, items, pageCount, itemCount
+						});
+					})
+					.catch(next);
+			})
 
 		.all('/create', allowed('media:item', 'create'))
 		.get('/create', render('media/create'))
@@ -52,7 +62,15 @@ export default function (router) {
 			});
 		})
 
-		.post('/:id/update', allowed('media:item', 'update'), () => {})
+		.all('/:id/update', allowed('media:item', 'update'))
+
+		.get('/:id/update', (req, res, next) => {
+
+		})
+		.post('/:id/update', (req, res, next) => {
+
+		})
+
 
 		.get('/:id/delete', allowed('media:item', 'delete'), (req, res, next) => {
 			MediaItem.findByIdAndRemove(req.params.id)
