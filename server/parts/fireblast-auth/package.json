@@ -1,20 +1,11 @@
 {
   "name": "fireblast-auth",
   "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
-  "directories": {
-    "test": "tests"
-  },
-  "keywords": [
-    "fireblast-plugin"
-  ],
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "dependencies": {
     "fireblast-forms": "*",
 	  "fireblast-core": "*"
   },
-  "license": "MIT"
+  "keywords": [
+    "fireblast-plugin"
+  ]
 }
