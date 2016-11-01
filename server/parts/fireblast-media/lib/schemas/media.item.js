@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import shortid from 'shortid';
 
-export default new mongoose.Schema({
+let MediaItemScheme = new mongoose.Schema({
 	_id: {
 		type: String,
 		unique: true,
@@ -31,3 +31,7 @@ export default new mongoose.Schema({
 		views: Number
 	}
 }, { discriminatorKey: '_type' });
+
+export let MODEL_NAME = 'MediaItem';
+
+export default MediaItemScheme;

@@ -15,4 +15,6 @@ GuestSchema.method('isAuthenticated', function () {
 	return false;
 });
 
+export let MODEL_NAME = 'Guest';
+
 export default GuestSchema;

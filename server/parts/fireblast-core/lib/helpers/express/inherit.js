@@ -1,6 +1,8 @@
 export default function (app) {
 	this.locals.basedir = app.locals.basedir;
 	this.conf = app.conf;
+	this.db = app.db;
+	this.model = app.model;
 
 	this.set('views', app.get('views'));
 	this.set('view engine', app.get('view engine'));

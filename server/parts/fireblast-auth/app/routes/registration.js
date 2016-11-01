@@ -1,13 +1,12 @@
 import loggedOut from 'fireblast-auth/lib/helpers/auth/loggedOut';
 import render from 'fireblast-core/lib/helpers/utils/render';
 
-import User from 'fireblast-auth/lib/models/user';
 import RegistrationForm from 'fireblast-auth/lib/forms/registration';
 
 export const MOUNT_PATH = '/registration';
 
-export default function (router) {
-	router
+export default function (app) {
+	app
 		.all('*', loggedOut('/'))
 
 		.get('/', render('auth/registration'))
@@ -17,7 +16,7 @@ export default function (router) {
 
 			form.handle({
 				success: function (form) {
-					var user = new User();
+					var user = new app.model.User();
 
 					user.local.username = form.data.username;
 					user.local.password = form.data.password;

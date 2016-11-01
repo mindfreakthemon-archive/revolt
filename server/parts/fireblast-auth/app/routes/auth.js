@@ -4,25 +4,23 @@ import loggedTo from 'fireblast-auth/lib/helpers/auth/loggedTo';
 import emit from 'fireblast-core/lib/helpers/utils/emit';
 import render from 'fireblast-core/lib/helpers/utils/render';
 
-import User from 'fireblast-auth/lib/models/user';
-
 export const MOUNT_PATH = '/auth';
 
-export default function (router) {
-	router
+export default function (app) {
+	app
 		.all('*', function (req, res, next) {
 			var url = req.protocol + '://' + req.get('host');
 
 			if (passport._strategies.google) {
-				passport._strategies.google._callbackURL = url + router.mountpath + '/google/callback';
+				passport._strategies.google._callbackURL = url + app.mountpath + '/google/callback';
 			}
 
 			if (passport._strategies.imgur) {
-				passport._strategies.imgur._callbackURL = url + router.mountpath + '/imgur/callback';
+				passport._strategies.imgur._callbackURL = url + app.mountpath + '/imgur/callback';
 			}
 
 			if (passport._strategies.github) {
-				passport._strategies.github._callbackURL = url + router.mountpath + '/github/callback';
+				passport._strategies.github._callbackURL = url + app.mountpath + '/github/callback';
 			}
 
 			next();
@@ -31,7 +29,7 @@ export default function (router) {
 		.get('/imgur', passport.authenticate('imgur'))
 		.get('/imgur/callback',
 		passport.authenticate('imgur', {
-			failureRedirect: router.mountpath + '/login'
+			failureRedirect: app.mountpath + '/login'
 		}),
 		emit('auth:login:imgur'),
 		loggedTo('/'))
@@ -39,7 +37,7 @@ export default function (router) {
 		.get('/google', passport.authenticate('google'))
 		.get('/google/callback',
 		passport.authenticate('google', {
-			failureRedirect: router.mountpath + '/login'
+			failureRedirect: app.mountpath + '/login'
 		}),
 		emit('auth:login:google'),
 		loggedTo('/'))
@@ -47,7 +45,7 @@ export default function (router) {
 		.get('/github', passport.authenticate('github'))
 		.get('/github/callback',
 		passport.authenticate('github', {
-			failureRedirect: router.mountpath + '/login'
+			failureRedirect: app.mountpath + '/login'
 		}),
 		emit('auth:login:github'),
 		loggedTo('/'))
@@ -56,9 +54,9 @@ export default function (router) {
 		.post('/login',
 		function (req, res, next) {
 			passport.authenticate('local', function (err, user) {
-				//if (err) {
-				//	return next(err);
-				//}
+				if (err) {
+					return next(err);
+				}
 
 				if (!user) {
 					return res.render('auth/login');
@@ -84,7 +82,7 @@ export default function (router) {
 
 			req.logout();
 
-			User.findOneAndRemove(id, function () {
+			app.model.User.findOneAndRemove(id, function () {
 				res.redirect('/');
 			});
 		});

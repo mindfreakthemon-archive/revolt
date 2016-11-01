@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export default function (done) {
+export default function () {
 	var app = this,
 		client,
 		endpoint = app.conf.get('mongo');
@@ -10,21 +10,16 @@ export default function (done) {
 		return;
 	}
 
-	app.logger.debug('connecting to mongodb');
+	return new Promise((resolve, reject) => {
+		app.logger.debug('connecting to mongodb');
 
-	mongoose.connect(endpoint);
+		mongoose.connect(endpoint);
 
-	client = mongoose.connection;
+		client = mongoose.connection;
 
-	client.on('error', function (error) {
-		app.logger.error('mongodb connection error:', error.toString());
+		client.on('error', error => app.logger.error('mongodb connection error:', error.toString()));
+		client.once('open', () => (resolve(), app.logger.info('mongodb client is ready')));
+
+		app.db.mongo = client;
 	});
-
-	client.once('open', function () {
-		app.logger.info('mongodb client is ready');
-
-		done();
-	});
-
-	app.db.mongo = client;
 }

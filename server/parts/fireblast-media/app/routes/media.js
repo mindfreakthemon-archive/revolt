@@ -3,13 +3,12 @@ import paginate from 'express-paginate';
 import render from 'fireblast-core/lib/helpers/utils/render';
 import allowed from 'fireblast-acl/lib/helpers/acl/allowed';
 
-import MediaItem from 'fireblast-media/lib/models/media.item';
 import MediaAddItemForm from 'fireblast-media/lib/forms/add.item';
 
 export const MOUNT_PATH = '/media';
 
-export default function (router) {
-	router
+export default function (app) {
+	app
 		.get('/',
 
 			paginate.middleware(),
@@ -19,7 +18,7 @@ export default function (router) {
 				var page = req.query.page || 1,
 					limit = req.query.limit || 2;
 
-				MediaItem
+				app.model.MediaItem
 					.paginate({}, {
 						page,
 						limit,
@@ -27,9 +26,9 @@ export default function (router) {
 							created: -1
 						}
 					})
-					.spread((items, pageCount, itemCount) => {
+					.then(({ docs, total, limit, page, pages }) => {
 						res.render('media/items', {
-							page, limit, items, pageCount, itemCount
+							page, limit, items: docs, pageCount: pages, itemCount: total
 						});
 					})
 					.catch(next);
@@ -42,7 +41,7 @@ export default function (router) {
 
 			form.handle({
 				success: function (form) {
-					var item = new MediaItem();
+					var item = new app.model.MediaItem();
 
 					item.set({
 						title: form.data.title,
@@ -50,7 +49,7 @@ export default function (router) {
 					});
 
 					item.save(() => {
-						res.redirect(router.mountpath);
+						res.redirect(app.mountpath);
 					});
 
 				},
@@ -73,16 +72,16 @@ export default function (router) {
 
 
 		.get('/:id/delete', allowed('media:item', 'delete'), (req, res, next) => {
-			MediaItem.findByIdAndRemove(req.params.id)
+			app.model.MediaItem.findByIdAndRemove(req.params.id)
 				.exec()
 				.then(() => {
-					res.redirect(router.mountpath);
+					res.redirect(app.mountpath);
 				})
 				.catch(next);
 		})
 
 		.get('/:id', allowed('media:item', 'read'), (req, res, next) => {
-			MediaItem.findById(req.params.id)
+			app.model.MediaItem.findById(req.params.id)
 				.exec()
 				.then((item) => {
 					if (!item) {

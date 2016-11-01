@@ -1,14 +1,14 @@
-import bootable from 'bootable';
 import express from 'express';
 
-import setup from 'fireblast-core/lib/app/setup';
-import start from 'fireblast-core/lib/app/start';
+import { setup } from 'fireblast-core/lib/app/setup';
+import { phase, boot } from 'fireblast-core/lib/app/phase';
 
-var app = bootable(express());
+export let app = express();
 
 app.db = {};
+app.model = {};
+
 app.main = app;
 app.setup = setup;
-app.start = start;
-
-export default app;
+app.phase = phase;
+app.boot = boot;

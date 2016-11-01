@@ -1,0 +1,7 @@
+{
+    "only": [
+        "server/**/*.js",
+        "server/*.js"
+    ],
+    "presets": ["stage-1", "es2015"]
+}

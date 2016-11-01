@@ -153,4 +153,7 @@ UserSchema.method('isAuthenticated', function () {
 	return true;
 });
 
+
+export let MODEL_NAME = 'User';
+
 export default UserSchema;

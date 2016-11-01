@@ -1,7 +1,5 @@
 import passport from 'passport';
 
-import Guest from 'fireblast-auth/lib/models/guest';
-
 export default function () {
 	var app = this;
 
@@ -10,7 +8,7 @@ export default function () {
 
 	app.use(function (req, res, next) {
 		if (!req.user) {
-			req.user = new Guest();
+			req.user = new app.model.Guest();
 		}
 
 		res.locals.user = req.user;

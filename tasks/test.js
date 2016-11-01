@@ -12,5 +12,7 @@ gulp.task('test', function () {
 	app.addPath('./server/parts');
 
 	return gulp.src('server/**/tests/**/*.js', { read: false })
-		.pipe(mocha());
+		.pipe(mocha({
+			compilers: 'js:babel-core/register'
+		}));
 });

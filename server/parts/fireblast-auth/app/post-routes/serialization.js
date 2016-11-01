@@ -1,11 +1,10 @@
 import passport from 'passport';
+import mongoose from 'mongoose';
 
-import User from 'fireblast-auth/lib/models/user';
-
-passport.serializeUser(function (user, done) {
+passport.serializeUser((user, done) => {
 	done(null, user.id);
 });
 
-passport.deserializeUser(function (id, done) {
-	User.findById(id, done);
+passport.deserializeUser((id, done) => {
+	mongoose.model('User').findById(id, done);
 });

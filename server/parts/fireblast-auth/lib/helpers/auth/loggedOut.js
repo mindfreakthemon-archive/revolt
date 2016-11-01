@@ -6,7 +6,7 @@
  */
 export default function (url) {
 	return function (req, res, next) {
-		if (req.user) {
+		if (req.user.isAuthenticated()) {
 			res.redirect(url);
 			return;
 		}

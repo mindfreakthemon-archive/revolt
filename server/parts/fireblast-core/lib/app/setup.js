@@ -1,68 +1,60 @@
 import fs from 'fs';
+import { Promise } from 'bluebird';
 
-import express from 'express';
-
-import bootable from 'bootable';
-
-import inherit from 'fireblast-core/lib/helpers/express/inherit';
-import importer from 'fireblast-core/lib/helpers/setup/importer';
-import walker from 'fireblast-core/lib/helpers/setup/walker';
+import { importer, initialize, mount } from 'fireblast-core/lib/helpers/setup';
 
 const DEFAULT_MOUNT_PATH = '/';
 
-export default function () {
+export function setup(root) {
 	var app = this;
+	
+	app.root = root;
 
-	app.parts = fs.readdirSync(app.root + '/parts');
+	app.parts = fs.readdirSync(root + '/parts');
 
-	var paths = [app.root + '/main'].concat(app.parts.map(part => (app.root + '/parts/' + part)));
-
-	/**
-	 * Really low level initialization.
-	 * Should not be used in any part rather than core.
-	 */
-	paths.forEach(path => app.phase(bootable.initializers(path + '/app/pre-init', app)));
+	var paths = [root + '/main'].concat(app.parts.map(part => (root + '/parts/' + part)));
 
 	/**
-	 * Loads default.config.json files from each part.
+	 * Core-only init
 	 */
-	paths.forEach(path => app.phase(importer(path + '/default.config.json', app)));
+	paths.forEach(path => app.phase(initialize(path + '/app/core', app)));
+
+	/**
+	 *  Really low level init
+	 */
+	paths.forEach(path => app.phase(initialize(path + '/app/pre-init', app)));
+
+	/**
+	 * Loads config.json files from each part.
+	 */
+	paths.forEach(path => app.phase(importer(path + '/config.json', app)));
 
 	/**
 	 * Defaults initialization step.
 	 */
-	paths.forEach(path => app.phase(bootable.initializers(path + '/app/init', app)));
+	paths.forEach(path => app.phase(initialize(path + '/app/init', app)));
 
 	/**
 	 * Loading config.json file for this app.
 	 */
-	app.phase(importer(app.root + '/config.json', app));
+	app.phase(importer(root + '/config.json', app));
 
 	/**
 	 * DB initialization step.
 	 */
-	paths.forEach(path => app.phase(bootable.initializers(path + '/app/pre-db', app)));
-	paths.forEach(path => app.phase(bootable.initializers(path + '/app/db', app)));
-	paths.forEach(path => app.phase(bootable.initializers(path + '/app/post-db', app)));
+	paths.forEach(path => app.phase(initialize(path + '/app/pre-db', app)));
+	paths.forEach(path => app.phase(initialize(path + '/app/db', app)));
+	paths.forEach(path => app.phase(initialize(path + '/app/post-db', app)));
 
 	/**
 	 * Time to hook up to the any events available.
 	 */
-	paths.forEach(path => app.phase(bootable.initializers(path + '/app/services', app)));
+	paths.forEach(path => app.phase(initialize(path + '/app/services', app)));
 
 	/**
 	 * Application routes initialization step
 	 */
-	paths.forEach(path => app.phase(bootable.initializers(path + '/app/pre-routes', app)));
-	paths.forEach(path => app.phase(walker(path + '/app/routes', (route) => {
-		var router = express();
-
-		app.logger.debug('loading %s module: %s', path, route.MOUNT_PATH);
-
-		router.on('mount', inherit);
-		router.on('mount', route.default.bind(app, router));
-
-		app.use(route.MOUNT_PATH || DEFAULT_MOUNT_PATH, router);
-	})));
-	paths.forEach(path => app.phase(bootable.initializers(path + '/app/post-routes', app)));
+	paths.forEach(path => app.phase(initialize(path + '/app/pre-routes', app)));
+	paths.forEach(path => app.phase(mount(path + '/app/routes', app)));
+	paths.forEach(path => app.phase(initialize(path + '/app/post-routes', app)));
 }
